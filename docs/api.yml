@@ -1,0 +1,137 @@
+openapi: "3.0.3"
+info:
+  title: Api
+  version: "1.0"
+servers:
+  - url: http://localhost:8080
+security:
+  - BearerAuth: []
+
+tags:
+  - name: auth
+    description: For all authentications requests
+paths:
+  /auth/sign-up:
+    post:
+      tags:
+        - auth
+      security: []
+      summary: Create new account with basic user role
+      operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Credentials"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SignUpResult"
+  /auth/sign-in:
+    post:
+      tags:
+        - auth
+      security: []
+      summary: Login with and existing account
+      operationId: signIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Credentials"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SignInResult"
+
+components:
+  parameters:
+    Id:
+      name: id
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    Page:
+      name: page
+      required: false
+      in: query
+      schema:
+        type: number
+        default: 1
+    PageSize:
+      name: pageSize
+      required: false
+      in: query
+      schema:
+        type: number
+        default: 10
+    Name:
+      name: name
+      required: false
+      in: query
+      schema:
+        type: string
+    Month:
+      name: month
+      required: false
+      in: query
+      schema:
+        type: number
+        minimum: 0
+        maximum: 11
+    Year:
+      name: year
+      required: false
+      in: query
+      schema:
+        type: number
+
+  schemas:
+    Credentials:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    SignUpResult:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+    SignInResult:
+      type: object
+      properties:
+        account:
+          allOf:
+            - $ref: "#/components/schemas/SignUpResult"
+        token:
+          type: string
+    PaginationResult:
+      type: object
+      properties:
+        totalPage:
+          type: number
+          minimum: 1
+        page:
+          type: number
+          minimum: 1
+        hasNext:
+          type: boolean
+        hasPrev:
+          type: boolean

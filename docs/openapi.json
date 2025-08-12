@@ -1,0 +1,227 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Api",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080"
+    }
+  ],
+  "security": [
+    {
+      "BearerAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "For all authentications requests",
+      "name": "auth"
+    }
+  ],
+  "paths": {
+    "/auth/sign-up": {
+      "post": {
+        "operationId": "signUp",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Credentials"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/SignUpResult"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [],
+        "summary": "Create new account with basic user role",
+        "tags": ["auth"]
+      }
+    },
+    "/auth/sign-in": {
+      "post": {
+        "operationId": "signIn",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Credentials"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/SignInResult"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "security": [],
+        "summary": "Login with and existing account",
+        "tags": ["auth"]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "Id": {
+        "explode": false,
+        "in": "path",
+        "name": "id",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "style": "simple"
+      },
+      "Page": {
+        "explode": true,
+        "in": "query",
+        "name": "page",
+        "required": false,
+        "schema": {
+          "default": 1,
+          "type": "number"
+        },
+        "style": "form"
+      },
+      "PageSize": {
+        "explode": true,
+        "in": "query",
+        "name": "pageSize",
+        "required": false,
+        "schema": {
+          "default": 10,
+          "type": "number"
+        },
+        "style": "form"
+      },
+      "Name": {
+        "explode": true,
+        "in": "query",
+        "name": "name",
+        "required": false,
+        "schema": {
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "Month": {
+        "explode": true,
+        "in": "query",
+        "name": "month",
+        "required": false,
+        "schema": {
+          "maximum": 11,
+          "minimum": 0,
+          "type": "number"
+        },
+        "style": "form"
+      },
+      "Year": {
+        "explode": true,
+        "in": "query",
+        "name": "year",
+        "required": false,
+        "schema": {
+          "type": "number"
+        },
+        "style": "form"
+      }
+    },
+    "schemas": {
+      "Credentials": {
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SignUpResult": {
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "SignInResult": {
+        "properties": {
+          "account": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SignUpResult"
+              }
+            ]
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PaginationResult": {
+        "properties": {
+          "totalPage": {
+            "minimum": 1,
+            "type": "number"
+          },
+          "page": {
+            "minimum": 1,
+            "type": "number"
+          },
+          "hasNext": {
+            "type": "boolean"
+          },
+          "hasPrev": {
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}
