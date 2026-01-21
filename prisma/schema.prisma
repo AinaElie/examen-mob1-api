@@ -18,8 +18,8 @@ model Account {
   username String     @unique
   password String
   roles    UserRole[]
+  wallets  Wallet[]
 }
-
 
 model Role {
   id          String     @id @default(uuid())
@@ -43,4 +43,32 @@ model UserRole {
 model File {
   id   String @id @default(uuid())
   path String @unique
+}
+
+model Wallet {
+  id           String        @id @default(uuid())
+  accountId    String
+  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  name         String        @unique
+  type         String
+  createdAt    DateTime      @default(now())
+  transactions Transaction[]
+}
+
+model Label {
+  id           String        @id @default(uuid())
+  name         String        @unique
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  transactions Transaction[]
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  labels    Label[]
+  walletId  String
+  wallet    Wallet?  @relation(fields: [walletId], references: [id], onDelete: Cascade)
 }
