@@ -49,12 +49,15 @@ model File {
 
 model Wallet {
   id           String        @id @default(uuid())
-  accountId    String
-  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
   name         String        @unique
   type         String
+  description  String
+  amount       String
+  isActice     Boolean
   createdAt    DateTime      @default(now())
   transactions Transaction[]
+  accountId    String
+  account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
 }
 
 model Label {
