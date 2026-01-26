@@ -31,7 +31,24 @@ export interface CreationWallet {
    * @memberof CreationWallet
    */
   description?: string;
+  /**
+   *
+   * @type {string}
+   * @memberof CreationWallet
+   */
+  type?: CreationWalletTypeEnum;
 }
+
+/**
+ * @export
+ */
+export const CreationWalletTypeEnum = {
+  Cash: "CASH",
+  MobileMoney: "MOBILE_MONEY",
+  Bank: "BANK",
+  Debt: "DEBT",
+} as const;
+export type CreationWalletTypeEnum = (typeof CreationWalletTypeEnum)[keyof typeof CreationWalletTypeEnum];
 
 /**
  * Check if a given object implements the CreationWallet interface.
@@ -51,6 +68,7 @@ export function CreationWalletFromJSONTyped(json: any, ignoreDiscriminator: bool
   return {
     name: json["name"] == null ? undefined : json["name"],
     description: json["description"] == null ? undefined : json["description"],
+    type: json["type"] == null ? undefined : json["type"],
   };
 }
 
@@ -66,5 +84,6 @@ export function CreationWalletToJSONTyped(value?: CreationWallet | null, ignoreD
   return {
     name: value["name"],
     description: value["description"],
+    type: value["type"],
   };
 }

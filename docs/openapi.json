@@ -580,6 +580,10 @@
           },
           "description": {
             "type": "string"
+          },
+          "type": {
+            "enum": ["CASH", "MOBILE_MONEY", "BANK", "DEBT"],
+            "type": "string"
           }
         },
         "type": "object"

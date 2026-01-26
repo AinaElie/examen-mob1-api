@@ -36,6 +36,12 @@ export interface Wallet {
    * @type {string}
    * @memberof Wallet
    */
+  type?: WalletTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof Wallet
+   */
   id?: string;
   /**
    *
@@ -50,6 +56,17 @@ export interface Wallet {
    */
   amount?: number;
 }
+
+/**
+ * @export
+ */
+export const WalletTypeEnum = {
+  Cash: "CASH",
+  MobileMoney: "MOBILE_MONEY",
+  Bank: "BANK",
+  Debt: "DEBT",
+} as const;
+export type WalletTypeEnum = (typeof WalletTypeEnum)[keyof typeof WalletTypeEnum];
 
 /**
  * Check if a given object implements the Wallet interface.
@@ -69,6 +86,7 @@ export function WalletFromJSONTyped(json: any, ignoreDiscriminator: boolean): Wa
   return {
     name: json["name"] == null ? undefined : json["name"],
     description: json["description"] == null ? undefined : json["description"],
+    type: json["type"] == null ? undefined : json["type"],
     id: json["id"] == null ? undefined : json["id"],
     isActive: json["isActive"] == null ? undefined : json["isActive"],
     amount: json["amount"] == null ? undefined : json["amount"],
@@ -87,6 +105,7 @@ export function WalletToJSONTyped(value?: Wallet | null, ignoreDiscriminator: bo
   return {
     name: value["name"],
     description: value["description"],
+    type: value["type"],
     id: value["id"],
     isActive: value["isActive"],
     amount: value["amount"],

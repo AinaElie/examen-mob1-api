@@ -6,6 +6,7 @@
 | ------------- | ------ |
 | `name`        | string |
 | `description` | string |
+| `type`        | string |
 
 ## Example
 
@@ -16,6 +17,7 @@ import type { CreationWallet } from "";
 const example = {
   name: Personal,
   description: null,
+  type: null,
 } satisfies CreationWallet;
 
 console.log(example);

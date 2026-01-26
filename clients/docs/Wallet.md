@@ -6,6 +6,7 @@
 | ------------- | ------- |
 | `name`        | string  |
 | `description` | string  |
+| `type`        | string  |
 | `id`          | string  |
 | `isActive`    | boolean |
 | `amount`      | number  |
@@ -19,6 +20,7 @@ import type { Wallet } from "";
 const example = {
   name: Personal,
   description: null,
+  type: null,
   id: null,
   isActive: null,
   amount: null,

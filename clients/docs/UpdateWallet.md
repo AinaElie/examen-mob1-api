@@ -6,6 +6,7 @@
 | ------------- | ------- |
 | `name`        | string  |
 | `description` | string  |
+| `type`        | string  |
 | `id`          | string  |
 | `isActive`    | boolean |
 
@@ -18,6 +19,7 @@ import type { UpdateWallet } from "";
 const example = {
   name: Personal,
   description: null,
+  type: null,
   id: null,
   isActive: null,
 } satisfies UpdateWallet;

@@ -36,6 +36,12 @@ export interface UpdateWallet {
    * @type {string}
    * @memberof UpdateWallet
    */
+  type?: UpdateWalletTypeEnum;
+  /**
+   *
+   * @type {string}
+   * @memberof UpdateWallet
+   */
   id?: string;
   /**
    *
@@ -44,6 +50,17 @@ export interface UpdateWallet {
    */
   isActive?: boolean;
 }
+
+/**
+ * @export
+ */
+export const UpdateWalletTypeEnum = {
+  Cash: "CASH",
+  MobileMoney: "MOBILE_MONEY",
+  Bank: "BANK",
+  Debt: "DEBT",
+} as const;
+export type UpdateWalletTypeEnum = (typeof UpdateWalletTypeEnum)[keyof typeof UpdateWalletTypeEnum];
 
 /**
  * Check if a given object implements the UpdateWallet interface.
@@ -63,6 +80,7 @@ export function UpdateWalletFromJSONTyped(json: any, ignoreDiscriminator: boolea
   return {
     name: json["name"] == null ? undefined : json["name"],
     description: json["description"] == null ? undefined : json["description"],
+    type: json["type"] == null ? undefined : json["type"],
     id: json["id"] == null ? undefined : json["id"],
     isActive: json["isActive"] == null ? undefined : json["isActive"],
   };
@@ -80,6 +98,7 @@ export function UpdateWalletToJSONTyped(value?: UpdateWallet | null, ignoreDiscr
   return {
     name: value["name"],
     description: value["description"],
+    type: value["type"],
     id: value["id"],
     isActive: value["isActive"],
   };
