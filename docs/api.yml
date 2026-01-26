@@ -282,6 +282,14 @@ components:
           example: Personal
         description:
           type: string
+        type:
+          type: string
+          enum:
+            - CASH
+            - MOBILE_MONEY
+            - BANK
+            - DEBT
+
     UpdateWallet:
       type: object
       properties:
