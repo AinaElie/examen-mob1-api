@@ -130,6 +130,84 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Label"
+  /account/{accountId}/wallet:
+    get:
+      tags:
+        - wallet
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+      summary: Get all disponibles wallet for the specified account
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Wallet"
+    post:
+      tags:
+        - wallet
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+      summary: Create new wallet for the specified account
+      operationId: createOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreationWallet"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Wallet"
+  /account/{accountId}/wallet/{walletId}:
+    get:
+      tags:
+        - wallet
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Get get one wallet by id for the specified account
+      operationId: getOne
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Wallet"
+    put:
+      tags:
+        - wallet
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Update one wallet by id for the specified account
+      operationId: updateOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/UpdateWallet"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Wallet"
+
 components:
   parameters:
     Id:
@@ -147,6 +225,13 @@ components:
         type: string
         format: uuid
     LabelId:
+      name: labelId
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    WalletId:
       name: labelId
       required: true
       in: path
@@ -189,6 +274,32 @@ components:
         type: number
 
   schemas:
+    CreationWallet:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Personal
+        description:
+          type: string
+    UpdateWallet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        isActive:
+          type: boolean
+      allOf:
+        - $ref: "#/components/schemas/CreationWallet"
+    Wallet:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/UpdateWallet"
+      properties:
+        amount:
+          type: number
+          format: double
     CreationLabel:
       type: object
       properties:
