@@ -1,2 +1,1 @@
-export * from "./user-mappers";
-export * from "./contribution-mappers";
+export * from "./label-mapper";

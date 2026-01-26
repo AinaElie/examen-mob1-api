@@ -1,0 +1,49 @@
+import { RequestHandler } from "express";
+import { v4 } from "uuid";
+
+import { LabelMapper } from "@/mappers";
+import { LabelServices } from "@/services";
+
+export class LabelController {
+  static readonly create: RequestHandler = async (req, res, _next) => {
+    try {
+      const { name } = req.body;
+      const accountId = (req as any).account.id;
+      const data = await LabelServices.create(accountId, { id: v4(), name });
+      res.json(LabelMapper.toRest(data));
+    } catch (error) {
+      res.json({ code: error.status, message: error.message });
+    }
+  };
+  static readonly update: RequestHandler = async (req, res, _next) => {
+    try {
+      const label = req.body;
+      const accountId = (req as any).account.id;
+      const data = await LabelServices.create(accountId, label);
+      res.json(LabelMapper.toRest(data));
+    } catch (error) {
+      res.json({ code: error.status, message: error.message });
+    }
+  };
+  static readonly getOne: RequestHandler = async (req, res, _next) => {
+    try {
+      const { id } = req.params;
+      const accountId = (req as any).account.id;
+      const data = await LabelServices.getOneById(accountId, id as string);
+      res.json(LabelMapper.toRest(data));
+    } catch (error) {
+      res.json({ code: error.status, message: error.message });
+    }
+  };
+  static readonly getAll: RequestHandler = async (req, res, _next) => {
+    try {
+      const { page, pageSize } = req as any;
+      const accountId = (req as any).account.id;
+
+      const data = await LabelServices.getAll(accountId, { page, pageSize });
+      res.json(data.map(LabelMapper.toRest));
+    } catch (error) {
+      res.json({ code: error.status, message: error.message });
+    }
+  };
+}

@@ -152,3 +152,4 @@ openapitools.json
 prisma/*.db*
 .vscode
 *.rest
+./mock

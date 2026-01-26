@@ -1,8 +1,8 @@
 import * as cors from "cors";
 import * as express from "express";
 
-import { errorHandler } from "@/middlewares";
-import { authRouter, swaggerRouter } from "@/routes";
+import { errorHandler, securityHandler } from "@/middlewares";
+import { authRouter, labelRouter, swaggerRouter } from "@/routes";
 
 export const server = async () => {
   try {
@@ -13,6 +13,8 @@ export const server = async () => {
     app.use(cors());
 
     app.use("/auth", authRouter);
+
+    app.use("/account/:accountId/label", securityHandler, labelRouter);
     app.use("/", swaggerRouter);
 
     app.listen(PORT, () => {

@@ -1,0 +1,31 @@
+import { getPrismaClient } from "@/configs";
+import { ApiError } from "@/errors";
+import { ListFilters, RestLabel } from "@/types";
+
+export class LabelServices {
+  static async create(accountId: string, label: RestLabel) {
+    const getLabelByName = await getPrismaClient().label.findFirst({ where: { name: label.name, accountId } });
+    if (getLabelByName) throw new ApiError(`Label with name=${label.name} already exist`, 400);
+    return await getPrismaClient().label.create({ data: { name: label.name, id: label.id, accountId } });
+  }
+  static async update(accountId: string, label: RestLabel) {
+    const getLabelById = await getPrismaClient().label.findFirst({ where: { id: label.id, accountId } });
+    if (!getLabelById) throw new ApiError(`Label with id=${label.id} not found`, 404);
+    return await getPrismaClient().label.update({ data: { name: label.name }, where: { id: label.id, accountId } });
+  }
+
+  static async getOneById(accountId: string, id: string) {
+    const getLabelById = await getPrismaClient().label.findFirst({ where: { id, accountId } });
+    if (!getLabelById) throw new ApiError(`Label with id=${id} not found`, 404);
+    return getLabelById;
+  }
+  static async getAll(accountId: string, query: ListFilters) {
+    const { page, pageSize } = query;
+
+    return await getPrismaClient().label.findMany({
+      take: pageSize,
+      skip: pageSize * (page - 1),
+      where: { accountId },
+    });
+  }
+}
