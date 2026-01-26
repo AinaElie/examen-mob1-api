@@ -94,6 +94,193 @@
         "summary": "Login with and existing account",
         "tags": ["auth"]
       }
+    },
+    "/account/{accountId}/label": {
+      "get": {
+        "operationId": "getAll",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Label"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get all disponibles lables for the specified account",
+        "tags": ["label"]
+      },
+      "post": {
+        "operationId": "createOne",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreationLabel"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Label"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Create new label for the specified account",
+        "tags": ["label"]
+      }
+    },
+    "/account/{accountId}/label/{labelId}": {
+      "get": {
+        "operationId": "getOne",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Label"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get get one label by id for the specified account",
+        "tags": ["label"]
+      },
+      "put": {
+        "operationId": "updateOne",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Label"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Label"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update one label by id for the specified account",
+        "tags": ["label"]
+      }
     }
   },
   "components": {
@@ -102,6 +289,28 @@
         "explode": false,
         "in": "path",
         "name": "id",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "style": "simple"
+      },
+      "AccountId": {
+        "explode": false,
+        "in": "path",
+        "name": "accountId",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "style": "simple"
+      },
+      "LabelId": {
+        "explode": false,
+        "in": "path",
+        "name": "labelId",
         "required": true,
         "schema": {
           "format": "uuid",
@@ -165,6 +374,34 @@
       }
     },
     "schemas": {
+      "CreationLabel": {
+        "properties": {
+          "name": {
+            "example": "FOOD",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Label": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreationLabel"
+          },
+          {
+            "properties": {
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "example": null
+          }
+        ],
+        "type": "object",
+        "example": null
+      },
       "Credentials": {
         "properties": {
           "username": {

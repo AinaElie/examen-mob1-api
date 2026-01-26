@@ -53,11 +53,101 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/SignInResult"
-
+  /account/{accountId}/label:
+    get:
+      tags:
+        - label
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+      summary: Get all disponibles lables for the specified account
+      operationId: getAll
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Label"
+    post:
+      tags:
+        - label
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+      summary: Create new label for the specified account
+      operationId: createOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreationLabel"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Label"
+  /account/{accountId}/label/{labelId}:
+    get:
+      tags:
+        - label
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/LabelId"
+      summary: Get get one label by id for the specified account
+      operationId: getOne
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Label"
+    put:
+      tags:
+        - label
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/LabelId"
+      summary: Update one label by id for the specified account
+      operationId: updateOne
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Label"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Label"
 components:
   parameters:
     Id:
       name: id
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    AccountId:
+      name: accountId
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    LabelId:
+      name: labelId
       required: true
       in: path
       schema:
@@ -99,6 +189,21 @@ components:
         type: number
 
   schemas:
+    CreationLabel:
+      type: object
+      properties:
+        name:
+          type: string
+          example: FOOD
+    Label:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/CreationLabel"
+      properties:
+        id:
+          type: string
+          format: uuid
+
     Credentials:
       type: object
       properties:
