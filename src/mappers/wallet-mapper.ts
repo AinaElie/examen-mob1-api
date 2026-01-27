@@ -2,6 +2,8 @@ import { Wallet as RestWallet, WalletTypeEnum } from "@clients";
 import { Wallet as PrismaWallet } from "@prisma/client";
 import { v4 } from "uuid";
 
+import { copyObject } from "@/utilities";
+
 export class WalletMapper {
   public static toRest(wallet: PrismaWallet) {
     const mapped: RestWallet = {
@@ -39,6 +41,13 @@ export class WalletMapper {
       isActive: !!wallet.isActive,
       type: wallet.type || "",
     };
+    return mapped as PrismaWallet;
+  }
+
+  public static update(accountId: string, wallet: RestWallet): PrismaWallet {
+    const mapped = copyObject(wallet);
+    delete mapped.amount;
+    mapped.accountId = accountId;
     return mapped as PrismaWallet;
   }
 }

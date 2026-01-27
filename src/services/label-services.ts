@@ -11,6 +11,10 @@ export class LabelServices {
   static async update(accountId: string, label: RestLabel) {
     const getLabelById = await getPrismaClient().label.findFirst({ where: { id: label.id, accountId } });
     if (!getLabelById) throw new ApiError(`Label with id=${label.id} not found`, 404);
+
+    const getLabelByName = await getPrismaClient().label.findFirst({ where: { name: label.name, accountId, id: { not: label.id } } });
+    if (getLabelByName) throw new ApiError(`Label with name=${label.name} already exist`, 400);
+
     return await getPrismaClient().label.update({ data: { name: label.name }, where: { id: label.id, accountId } });
   }
 
