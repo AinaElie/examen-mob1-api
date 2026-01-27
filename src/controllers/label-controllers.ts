@@ -23,10 +23,11 @@ export class LabelController {
     try {
       const label = req.body;
       const accountId = (req as any).account.id;
+      const { labelId } = req.params;
 
       LabelValidator.update(accountId, label);
 
-      const data = await LabelServices.create(accountId, label);
+      const data = await LabelServices.create(accountId, { ...label, id: labelId });
       res.json(LabelMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
@@ -34,9 +35,9 @@ export class LabelController {
   };
   static readonly getOne: RequestHandler = async (req, res, _next) => {
     try {
-      const { id } = req.params;
+      const { labelId } = req.params;
       const accountId = (req as any).account.id;
-      const data = await LabelServices.getOneById(accountId, id as string);
+      const data = await LabelServices.getOneById(accountId, labelId as string);
       res.json(LabelMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });

@@ -1,7 +1,6 @@
-import { NextFunction } from "express";
 import { z } from "zod";
 
-import { ApiError, BadRequestError } from "@/errors";
+import { ApiError } from "@/errors";
 
 const createUserSchema = z.object({
   password: z.string().min(8),

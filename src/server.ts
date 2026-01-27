@@ -4,6 +4,8 @@ import * as express from "express";
 import { errorHandler, securityHandler } from "@/middlewares";
 import { authRouter, labelRouter, swaggerRouter } from "@/routes";
 
+import { walletRouter } from "./routes/wallet-routes";
+
 export const server = async () => {
   try {
     const PORT = process.env.PORT || 8080;
@@ -15,6 +17,7 @@ export const server = async () => {
     app.use("/auth", authRouter);
 
     app.use("/account/:accountId/label", securityHandler, labelRouter);
+    app.use("/account/:accountId/wallet", securityHandler, walletRouter);
     app.use("/", swaggerRouter);
 
     app.listen(PORT, () => {

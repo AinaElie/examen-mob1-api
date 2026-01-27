@@ -1,11 +1,11 @@
 import * as express from "express";
 
 import { LabelController } from "@/controllers";
-import { paginationHandler, securityHandler } from "@/middlewares";
+import { paginationHandler } from "@/middlewares";
 
 export const labelRouter = express.Router();
 
 labelRouter.post("/", LabelController.create);
-labelRouter.put("/", LabelController.update);
 labelRouter.get("/", paginationHandler, LabelController.getAll);
-labelRouter.get("/:id", LabelController.getOne);
+labelRouter.put("/:labelId", LabelController.update);
+labelRouter.get("/:labelId", LabelController.getOne);

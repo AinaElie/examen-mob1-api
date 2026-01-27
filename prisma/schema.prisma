@@ -51,10 +51,10 @@ model Wallet {
   id           String        @id @default(uuid())
   name         String        @unique
   type         String
-  description  String
-  amount       String
-  isActice     Boolean
-  createdAt    DateTime      @default(now())
+  description  String?
+  amount       Int
+  isActive     Boolean       @default(true)
+  createdAt    DateTime?     @default(now())
   transactions Transaction[]
   accountId    String
   account      Account       @relation(fields: [accountId], references: [id], onDelete: Cascade)
@@ -63,7 +63,7 @@ model Wallet {
 model Label {
   id           String        @id @default(uuid())
   name         String        @unique
-  createdAt    DateTime      @default(now())
+  createdAt    DateTime?     @default(now())
   updatedAt    DateTime      @updatedAt
   transactions Transaction[]
   accountId    String
@@ -71,13 +71,13 @@ model Label {
 }
 
 model Transaction {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   date      DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
   labels    Label[]
   walletId  String
-  wallet    Wallet?  @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  wallet    Wallet?   @relation(fields: [walletId], references: [id], onDelete: Cascade)
   accountId String
-  account   Account? @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  account   Account?  @relation(fields: [accountId], references: [id], onDelete: Cascade)
 }
