@@ -4,11 +4,15 @@ import { v4 } from "uuid";
 import { getPrismaClient } from "@/configs";
 import { BadRequestError } from "@/errors";
 import { AccountServices } from "@/services";
+import { AccountValidator } from "@/validator";
 
 export class AccountController {
-  static readonly signIn: RequestHandler = async (req, res, _next) => {
+  static readonly signIn: RequestHandler = async (req, res, next) => {
     try {
       const { username, password } = req.body;
+
+      AccountValidator.create({ username, password });
+
       const data = await AccountServices.signIn(username, password);
       res.json(data);
     } catch (error) {
@@ -19,6 +23,9 @@ export class AccountController {
     const account = req.body;
 
     const accountExistUsername = await getPrismaClient().account.findUnique({ where: { username: account.username } });
+
+    AccountValidator.create(account);
+
     if (accountExistUsername) {
       BadRequestError("Username=" + account.username + " is already used", next);
     }
