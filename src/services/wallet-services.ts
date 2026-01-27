@@ -10,7 +10,7 @@ export class WalletServices {
   static async create(accountId: string, wallet: CreationWallet) {
     const getWalletByName = await getPrismaClient().wallet.findFirst({ where: { name: wallet.name, accountId } });
     if (getWalletByName) throw new ApiError(`Wallet with name=${wallet.name} already exist`, 400);
-    return await getPrismaClient().wallet.create({ data: WalletMapper.toDomain(wallet) });
+    return await getPrismaClient().wallet.create({ data: WalletMapper.create(accountId, wallet) });
   }
   static async update(accountId: string, wallet: UpdateWallet) {
     const getWalletById = await getPrismaClient().wallet.findFirst({ where: { id: wallet.id, accountId } });
