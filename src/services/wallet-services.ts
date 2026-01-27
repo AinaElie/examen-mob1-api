@@ -3,15 +3,14 @@ import { v4 } from "uuid";
 
 import { getPrismaClient } from "@/configs";
 import { ApiError } from "@/errors";
+import { WalletMapper } from "@/mappers";
 import { ListFilters } from "@/types";
 
 export class WalletServices {
   static async create(accountId: string, wallet: CreationWallet) {
     const getWalletByName = await getPrismaClient().wallet.findFirst({ where: { name: wallet.name, accountId } });
     if (getWalletByName) throw new ApiError(`Wallet with name=${wallet.name} already exist`, 400);
-    return await getPrismaClient().wallet.create({
-      data: { name: wallet.name, id: v4(), accountId, description: wallet.description, amount: 0, isActive: true, type: wallet.type },
-    });
+    return await getPrismaClient().wallet.create({ data: WalletMapper.toDomain(wallet) });
   }
   static async update(accountId: string, wallet: UpdateWallet) {
     const getWalletById = await getPrismaClient().wallet.findFirst({ where: { id: wallet.id, accountId } });

@@ -7,6 +7,9 @@ import { ApiError } from "@/errors";
 
 export class AccountServices {
   static async singUp(userId: string, account: Account) {
+    const accountExistUsername = await getPrismaClient().account.findUnique({ where: { username: account.username } });
+    if (accountExistUsername) throw new ApiError("Username=" + account.username + " is already used", 400);
+
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(account.password, salt);
     const parsedAccount: Account = { ...account, id: userId, password: hashedPassword };
