@@ -207,7 +207,87 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Wallet"
-
+  /account/{accountId}/wallet/{walletId}/transaction:
+    get:
+      tags:
+        - transaction
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Get all disponibles transaction for the specified account
+      operationId: getAllTransactions
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Transaction"
+    post:
+      tags:
+        - transaction
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Create new transaction for the specified account
+      operationId: createOneTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreationTransaction"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Transaction"
+  /account/{accountId}/wallet/{walletId}/transaction/{transactionId}:
+    get:
+      tags:
+        - transaction
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/TransactionId"
+      summary: Get get one transaction by id for the specified account
+      operationId: getOneTransaction
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Transaction"
+    put:
+      tags:
+        - transaction
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/TransactionId"
+      summary: Update one transaction by id for the specified account
+      operationId: updateOneTransaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Transaction"
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Transaction"
 components:
   parameters:
     Id:
@@ -226,6 +306,13 @@ components:
         format: uuid
     LabelId:
       name: labelId
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    TransactionId:
+      name: transactionId
       required: true
       in: path
       schema:
@@ -274,6 +361,41 @@ components:
         type: number
 
   schemas:
+    CreationTransaction:
+      type: object
+      properties:
+        date:
+          type: string
+          format: datetime
+          example: Personal
+        labels:
+          type: array
+          items:
+            $ref: "#/components/schemas/Label"
+        type:
+          type: string
+          enum:
+            - IN
+            - OUT
+        description:
+          type: string
+        amount:
+          type: number
+          format: double
+        walletId:
+          type: string
+          format: uuid
+        accountId:
+          type: string
+          format: uuid
+    Transaction:
+      allOf:
+        - $ref: "#/components/schemas/CreationTransaction"
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
     CreationWallet:
       type: object
       properties:

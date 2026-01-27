@@ -468,6 +468,237 @@
         "summary": "Update one wallet by id for the specified account",
         "tags": ["wallet"]
       }
+    },
+    "/account/{accountId}/wallet/{walletId}/transaction": {
+      "get": {
+        "operationId": "getAllTransactions",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get all disponibles transaction for the specified account",
+        "tags": ["transaction"]
+      },
+      "post": {
+        "operationId": "createOneTransaction",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/CreationTransaction"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Create new transaction for the specified account",
+        "tags": ["transaction"]
+      }
+    },
+    "/account/{accountId}/wallet/{walletId}/transaction/{transactionId}": {
+      "get": {
+        "operationId": "getOneTransaction",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Get get one transaction by id for the specified account",
+        "tags": ["transaction"]
+      },
+      "put": {
+        "operationId": "updateOneTransaction",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Update one transaction by id for the specified account",
+        "tags": ["transaction"]
+      }
     }
   },
   "components": {
@@ -498,6 +729,17 @@
         "explode": false,
         "in": "path",
         "name": "labelId",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "style": "simple"
+      },
+      "TransactionId": {
+        "explode": false,
+        "in": "path",
+        "name": "transactionId",
         "required": true,
         "schema": {
           "format": "uuid",
@@ -572,6 +814,60 @@
       }
     },
     "schemas": {
+      "CreationTransaction": {
+        "properties": {
+          "date": {
+            "example": "Personal",
+            "format": "datetime",
+            "type": "string"
+          },
+          "labels": {
+            "items": {
+              "$ref": "#/components/schemas/Label"
+            },
+            "type": "array"
+          },
+          "type": {
+            "enum": ["IN", "OUT"],
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "amount": {
+            "format": "double",
+            "type": "number"
+          },
+          "walletId": {
+            "format": "uuid",
+            "type": "string"
+          },
+          "accountId": {
+            "format": "uuid",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "Transaction": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/CreationTransaction"
+          },
+          {
+            "properties": {
+              "id": {
+                "format": "uuid",
+                "type": "string"
+              }
+            },
+            "type": "object",
+            "example": null
+          }
+        ],
+        "type": "object",
+        "example": null
+      },
       "CreationWallet": {
         "properties": {
           "name": {
