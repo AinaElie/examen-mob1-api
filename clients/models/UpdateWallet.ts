@@ -45,6 +45,12 @@ export interface UpdateWallet {
   id?: string;
   /**
    *
+   * @type {string}
+   * @memberof UpdateWallet
+   */
+  accountId?: string;
+  /**
+   *
    * @type {boolean}
    * @memberof UpdateWallet
    */
@@ -82,6 +88,7 @@ export function UpdateWalletFromJSONTyped(json: any, ignoreDiscriminator: boolea
     description: json["description"] == null ? undefined : json["description"],
     type: json["type"] == null ? undefined : json["type"],
     id: json["id"] == null ? undefined : json["id"],
+    accountId: json["accountId"] == null ? undefined : json["accountId"],
     isActive: json["isActive"] == null ? undefined : json["isActive"],
   };
 }
@@ -100,6 +107,7 @@ export function UpdateWalletToJSONTyped(value?: UpdateWallet | null, ignoreDiscr
     description: value["description"],
     type: value["type"],
     id: value["id"],
+    accountId: value["accountId"],
     isActive: value["isActive"],
   };
 }

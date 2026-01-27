@@ -599,6 +599,10 @@
                 "format": "uuid",
                 "type": "string"
               },
+              "accountId": {
+                "format": "uuid",
+                "type": "string"
+              },
               "isActive": {
                 "type": "boolean"
               }

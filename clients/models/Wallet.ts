@@ -45,6 +45,12 @@ export interface Wallet {
   id?: string;
   /**
    *
+   * @type {string}
+   * @memberof Wallet
+   */
+  accountId?: string;
+  /**
+   *
    * @type {boolean}
    * @memberof Wallet
    */
@@ -88,6 +94,7 @@ export function WalletFromJSONTyped(json: any, ignoreDiscriminator: boolean): Wa
     description: json["description"] == null ? undefined : json["description"],
     type: json["type"] == null ? undefined : json["type"],
     id: json["id"] == null ? undefined : json["id"],
+    accountId: json["accountId"] == null ? undefined : json["accountId"],
     isActive: json["isActive"] == null ? undefined : json["isActive"],
     amount: json["amount"] == null ? undefined : json["amount"],
   };
@@ -107,6 +114,7 @@ export function WalletToJSONTyped(value?: Wallet | null, ignoreDiscriminator: bo
     description: value["description"],
     type: value["type"],
     id: value["id"],
+    accountId: value["accountId"],
     isActive: value["isActive"],
     amount: value["amount"],
   };

@@ -296,6 +296,9 @@ components:
         id:
           type: string
           format: uuid
+        accountId:
+          type: string
+          format: uuid
         isActive:
           type: boolean
       allOf:

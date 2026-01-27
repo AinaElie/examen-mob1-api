@@ -8,6 +8,7 @@
 | `description` | string  |
 | `type`        | string  |
 | `id`          | string  |
+| `accountId`   | string  |
 | `isActive`    | boolean |
 
 ## Example
@@ -21,6 +22,7 @@ const example = {
   description: null,
   type: null,
   id: null,
+  accountId: null,
   isActive: null,
 } satisfies UpdateWallet;
 
