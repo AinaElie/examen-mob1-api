@@ -3,12 +3,16 @@ import { v4 } from "uuid";
 
 import { LabelMapper } from "@/mappers";
 import { LabelServices } from "@/services";
+import { LabelValidator } from "@/validator";
 
 export class LabelController {
   static readonly create: RequestHandler = async (req, res, _next) => {
     try {
       const { name } = req.body;
       const accountId = (req as any).account.id;
+
+      LabelValidator.create({ name });
+
       const data = await LabelServices.create(accountId, { id: v4(), name });
       res.json(LabelMapper.toRest(data));
     } catch (error) {
@@ -19,6 +23,9 @@ export class LabelController {
     try {
       const label = req.body;
       const accountId = (req as any).account.id;
+
+      LabelValidator.update(accountId, label);
+
       const data = await LabelServices.create(accountId, label);
       res.json(LabelMapper.toRest(data));
     } catch (error) {
