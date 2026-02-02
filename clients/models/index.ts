@@ -5,6 +5,7 @@ export * from "./CreationTransaction";
 export * from "./CreationWallet";
 export * from "./Credentials";
 export * from "./GetAllLabels200Response";
+export * from "./GetAllWallets200Response";
 export * from "./Label";
 export * from "./PaginationResult";
 export * from "./SignInResult";

@@ -144,6 +144,9 @@ paths:
         - wallet
       parameters:
         - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/Name"
+        - $ref: "#/components/parameters/IsActive"
+        - $ref: "#/components/parameters/WalletType"
       summary: Get all disponibles wallet for the specified account
       operationId: getAllWallets
       responses:
@@ -152,9 +155,16 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Wallet"
+                type: object
+                properties:
+                  pagination:
+                    allOf:
+                      - $ref: "#/components/schemas/PaginationResult"
+                  values:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Wallet"
+
     post:
       tags:
         - wallet
@@ -378,6 +388,23 @@ components:
       in: query
       schema:
         type: string
+    IsActive:
+      name: isActive
+      required: false
+      in: query
+      schema:
+        type: boolean
+    WalletType:
+      name: walletType
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+          - CASH
+          - MOBILE_MONEY
+          - BANK
+          - DEBT
     Month:
       name: month
       required: false

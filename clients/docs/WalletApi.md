@@ -78,7 +78,7 @@ No authorization required
 
 ## getAllWallets
 
-> Array&lt;Wallet&gt; getAllWallets(accountId)
+> GetAllWallets200Response getAllWallets(accountId, name, isActive, walletType)
 
 Get all disponibles wallet for the specified account
 
@@ -98,6 +98,12 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string (optional)
+    name: name_example,
+    // boolean (optional)
+    isActive: true,
+    // 'CASH' | 'MOBILE_MONEY' | 'BANK' | 'DEBT' (optional)
+    walletType: walletType_example,
   } satisfies GetAllWalletsRequest;
 
   try {
@@ -114,13 +120,16 @@ example().catch(console.error);
 
 ### Parameters
 
-| Name          | Type     | Description | Notes                     |
-| ------------- | -------- | ----------- | ------------------------- |
-| **accountId** | `string` |             | [Defaults to `undefined`] |
+| Name           | Type                                   | Description | Notes                                                                       |
+| -------------- | -------------------------------------- | ----------- | --------------------------------------------------------------------------- |
+| **accountId**  | `string`                               |             | [Defaults to `undefined`]                                                   |
+| **name**       | `string`                               |             | [Optional] [Defaults to `undefined`]                                        |
+| **isActive**   | `boolean`                              |             | [Optional] [Defaults to `undefined`]                                        |
+| **walletType** | `CASH`, `MOBILE_MONEY`, `BANK`, `DEBT` |             | [Optional] [Defaults to `undefined`] [Enum: CASH, MOBILE_MONEY, BANK, DEBT] |
 
 ### Return type
 
-[**Array&lt;Wallet&gt;**](Wallet.md)
+[**GetAllWallets200Response**](GetAllWallets200Response.md)
 
 ### Authorization
 

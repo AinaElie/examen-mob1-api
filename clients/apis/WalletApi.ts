@@ -11,10 +11,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { CreationWallet, UpdateWallet, Wallet, WalletAutomaticIncome } from "../models/index";
+import type { CreationWallet, GetAllWallets200Response, UpdateWallet, Wallet, WalletAutomaticIncome } from "../models/index";
 import {
   CreationWalletFromJSON,
   CreationWalletToJSON,
+  GetAllWallets200ResponseFromJSON,
+  GetAllWallets200ResponseToJSON,
   UpdateWalletFromJSON,
   UpdateWalletToJSON,
   WalletAutomaticIncomeFromJSON,
@@ -31,6 +33,9 @@ export interface CreateOneWalletRequest {
 
 export interface GetAllWalletsRequest {
   accountId: string;
+  name?: string;
+  isActive?: boolean;
+  walletType?: GetAllWalletsWalletTypeEnum;
 }
 
 export interface GetOneWalletRequest {
@@ -96,12 +101,27 @@ export class WalletApi extends runtime.BaseAPI {
   /**
    * Get all disponibles wallet for the specified account
    */
-  async getAllWalletsRaw(requestParameters: GetAllWalletsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Wallet>>> {
+  async getAllWalletsRaw(
+    requestParameters: GetAllWalletsRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<GetAllWallets200Response>> {
     if (requestParameters["accountId"] == null) {
       throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling getAllWallets().');
     }
 
     const queryParameters: any = {};
+
+    if (requestParameters["name"] != null) {
+      queryParameters["name"] = requestParameters["name"];
+    }
+
+    if (requestParameters["isActive"] != null) {
+      queryParameters["isActive"] = requestParameters["isActive"];
+    }
+
+    if (requestParameters["walletType"] != null) {
+      queryParameters["walletType"] = requestParameters["walletType"];
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -118,13 +138,13 @@ export class WalletApi extends runtime.BaseAPI {
       initOverrides,
     );
 
-    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(WalletFromJSON));
+    return new runtime.JSONApiResponse(response, (jsonValue) => GetAllWallets200ResponseFromJSON(jsonValue));
   }
 
   /**
    * Get all disponibles wallet for the specified account
    */
-  async getAllWallets(requestParameters: GetAllWalletsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Wallet>> {
+  async getAllWallets(requestParameters: GetAllWalletsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAllWallets200Response> {
     const response = await this.getAllWalletsRaw(requestParameters, initOverrides);
     return await response.value();
   }
@@ -261,3 +281,14 @@ export class WalletApi extends runtime.BaseAPI {
     return await response.value();
   }
 }
+
+/**
+ * @export
+ */
+export const GetAllWalletsWalletTypeEnum = {
+  Cash: "CASH",
+  MobileMoney: "MOBILE_MONEY",
+  Bank: "BANK",
+  Debt: "DEBT",
+} as const;
+export type GetAllWalletsWalletTypeEnum = (typeof GetAllWalletsWalletTypeEnum)[keyof typeof GetAllWalletsWalletTypeEnum];
