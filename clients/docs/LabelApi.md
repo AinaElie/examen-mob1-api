@@ -77,7 +77,7 @@ No authorization required
 
 ## getAllLabels
 
-> Array&lt;Label&gt; getAllLabels(accountId)
+> GetAllLabels200Response getAllLabels(accountId, page, pageSize, name)
 
 Get all disponibles lables for the specified account
 
@@ -97,6 +97,12 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // number (optional)
+    page: 8.14,
+    // number (optional)
+    pageSize: 8.14,
+    // string (optional)
+    name: name_example,
   } satisfies GetAllLabelsRequest;
 
   try {
@@ -113,13 +119,16 @@ example().catch(console.error);
 
 ### Parameters
 
-| Name          | Type     | Description | Notes                     |
-| ------------- | -------- | ----------- | ------------------------- |
-| **accountId** | `string` |             | [Defaults to `undefined`] |
+| Name          | Type     | Description | Notes                                |
+| ------------- | -------- | ----------- | ------------------------------------ |
+| **accountId** | `string` |             | [Defaults to `undefined`]            |
+| **page**      | `number` |             | [Optional] [Defaults to `1`]         |
+| **pageSize**  | `number` |             | [Optional] [Defaults to `10`]        |
+| **name**      | `string` |             | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 
-[**Array&lt;Label&gt;**](Label.md)
+[**GetAllLabels200Response**](GetAllLabels200Response.md)
 
 ### Authorization
 

@@ -59,6 +59,9 @@ paths:
         - label
       parameters:
         - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+        - $ref: "#/components/parameters/Name"
       summary: Get all disponibles lables for the specified account
       operationId: getAllLabels
       responses:
@@ -67,9 +70,14 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Label"
+                type: object
+                properties:
+                  pagination:
+                    allOf:
+                      - $ref: "#/components/schemas/PaginationResult"
+                  values:
+                    items:
+                      $ref: "#/components/schemas/Label"
     post:
       tags:
         - label

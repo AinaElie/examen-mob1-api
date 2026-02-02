@@ -109,6 +109,38 @@
               "type": "string"
             },
             "style": "simple"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "style": "form"
           }
         ],
         "responses": {
@@ -116,10 +148,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "items": {
-                    "$ref": "#/components/schemas/Label"
-                  },
-                  "type": "array"
+                  "$ref": "#/components/schemas/getAllLabels_200_response"
                 }
               }
             },
@@ -1010,6 +1039,24 @@
           },
           "hasPrev": {
             "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "getAllLabels_200_response": {
+        "properties": {
+          "pagination": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResult"
+              }
+            ]
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/Label"
+            },
+            "type": "array"
           }
         },
         "type": "object"

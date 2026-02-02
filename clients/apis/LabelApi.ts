@@ -11,8 +11,8 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { CreationLabel, Label } from "../models/index";
-import { CreationLabelFromJSON, CreationLabelToJSON, LabelFromJSON, LabelToJSON } from "../models/index";
+import type { CreationLabel, GetAllLabels200Response, Label } from "../models/index";
+import { CreationLabelFromJSON, CreationLabelToJSON, GetAllLabels200ResponseFromJSON, GetAllLabels200ResponseToJSON, LabelFromJSON, LabelToJSON } from "../models/index";
 import * as runtime from "../runtime";
 
 export interface CreateOneLabelRequest {
@@ -22,6 +22,9 @@ export interface CreateOneLabelRequest {
 
 export interface GetAllLabelsRequest {
   accountId: string;
+  page?: number;
+  pageSize?: number;
+  name?: string;
 }
 
 export interface GetOneLabelRequest {
@@ -81,12 +84,24 @@ export class LabelApi extends runtime.BaseAPI {
   /**
    * Get all disponibles lables for the specified account
    */
-  async getAllLabelsRaw(requestParameters: GetAllLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Label>>> {
+  async getAllLabelsRaw(requestParameters: GetAllLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetAllLabels200Response>> {
     if (requestParameters["accountId"] == null) {
       throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling getAllLabels().');
     }
 
     const queryParameters: any = {};
+
+    if (requestParameters["page"] != null) {
+      queryParameters["page"] = requestParameters["page"];
+    }
+
+    if (requestParameters["pageSize"] != null) {
+      queryParameters["pageSize"] = requestParameters["pageSize"];
+    }
+
+    if (requestParameters["name"] != null) {
+      queryParameters["name"] = requestParameters["name"];
+    }
 
     const headerParameters: runtime.HTTPHeaders = {};
 
@@ -103,13 +118,13 @@ export class LabelApi extends runtime.BaseAPI {
       initOverrides,
     );
 
-    return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LabelFromJSON));
+    return new runtime.JSONApiResponse(response, (jsonValue) => GetAllLabels200ResponseFromJSON(jsonValue));
   }
 
   /**
    * Get all disponibles lables for the specified account
    */
-  async getAllLabels(requestParameters: GetAllLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Label>> {
+  async getAllLabels(requestParameters: GetAllLabelsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetAllLabels200Response> {
     const response = await this.getAllLabelsRaw(requestParameters, initOverrides);
     return await response.value();
   }
