@@ -41,7 +41,7 @@ export class WalletServices {
   static async getAll(accountId: string, query: ListFilters & NameFilter & WalletFilter) {
     const { page, pageSize, name, isActive, walletType } = query;
 
-    const where = { accountId, name: { contains: name }, ...filterIfNotNull("isActive", isActive), ...filterIfNotNull("walletType", walletType) };
+    const where = { accountId, name: { contains: name }, ...filterIfNotNull("isActive", isActive), ...filterIfNotNull("type", walletType) };
 
     const values = await getPrismaClient().wallet.findMany({
       take: pageSize,
