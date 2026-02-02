@@ -48,8 +48,8 @@ export class LabelController {
       const { page, pageSize } = req as any;
       const accountId = (req as any).account.id;
 
-      const data = await LabelServices.getAll(accountId, { page, pageSize });
-      res.json(data.map(LabelMapper.toRest));
+      const data = await LabelServices.getAll(accountId, { ...req.query, page, pageSize });
+      res.json(LabelMapper.toListResponse(data.values, { page, pageSize, elementCount: data.count }));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }

@@ -1,6 +1,6 @@
 import { getPrismaClient } from "@/configs";
 import { ApiError } from "@/errors";
-import { ListFilters, RestLabel } from "@/types";
+import { ListFilters, NameFilter, RestLabel } from "@/types";
 
 export class LabelServices {
   static async create(accountId: string, label: RestLabel) {
@@ -23,13 +23,22 @@ export class LabelServices {
     if (!getLabelById) throw new ApiError(`Label with id=${id} not found`, 404);
     return getLabelById;
   }
-  static async getAll(accountId: string, query: ListFilters) {
-    const { page, pageSize } = query;
+  static async getAll(accountId: string, query: ListFilters & NameFilter) {
+    const { page, pageSize, name = "" } = query;
 
-    return await getPrismaClient().label.findMany({
+    const where = { accountId, name: { contains: name } };
+
+    const values = await getPrismaClient().label.findMany({
       take: pageSize,
       skip: pageSize * (page - 1),
-      where: { accountId },
+      where,
     });
+
+    const count = await getPrismaClient().label.count({ where });
+
+    return {
+      values,
+      count,
+    };
   }
 }
