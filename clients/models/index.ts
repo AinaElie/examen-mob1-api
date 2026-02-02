@@ -12,3 +12,4 @@ export * from "./SignUpResult";
 export * from "./Transaction";
 export * from "./UpdateWallet";
 export * from "./Wallet";
+export * from "./WalletAutomaticIncome";
