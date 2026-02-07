@@ -556,7 +556,6 @@ components:
         date:
           type: string
           format: date-time
-          example: Personal
         labels:
           type: array
           items:
