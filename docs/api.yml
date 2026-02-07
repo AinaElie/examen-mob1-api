@@ -502,14 +502,14 @@ components:
       in: query
       schema:
         type: string
-        format: datetime
+        format: date-time
     EndingDate:
       name: endingDate
       required: false
       in: query
       schema:
         type: string
-        format: datetime
+        format: date-time
     Month:
       name: month
       required: false
@@ -538,10 +538,10 @@ components:
           type: string
         startingDate:
           type: string
-          format: datetime
+          format: date-time
         endingDate:
           type: string
-          format: datetime
+          format: date-time
     Goal:
       type: object
       allOf:
@@ -555,7 +555,7 @@ components:
       properties:
         date:
           type: string
-          format: datetime
+          format: date-time
           example: Personal
         labels:
           type: array

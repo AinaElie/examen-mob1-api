@@ -847,7 +847,7 @@
             "name": "startingDate",
             "required": false,
             "schema": {
-              "format": "datetime",
+              "format": "date-time",
               "type": "string"
             },
             "style": "form"
@@ -858,7 +858,7 @@
             "name": "endingDate",
             "required": false,
             "schema": {
-              "format": "datetime",
+              "format": "date-time",
               "type": "string"
             },
             "style": "form"
@@ -1122,7 +1122,7 @@
         "name": "startingDate",
         "required": false,
         "schema": {
-          "format": "datetime",
+          "format": "date-time",
           "type": "string"
         },
         "style": "form"
@@ -1133,7 +1133,7 @@
         "name": "endingDate",
         "required": false,
         "schema": {
-          "format": "datetime",
+          "format": "date-time",
           "type": "string"
         },
         "style": "form"
@@ -1175,11 +1175,11 @@
             "type": "string"
           },
           "startingDate": {
-            "format": "datetime",
+            "format": "date-time",
             "type": "string"
           },
           "endingDate": {
-            "format": "datetime",
+            "format": "date-time",
             "type": "string"
           }
         },
@@ -1207,8 +1207,7 @@
       "CreationTransaction": {
         "properties": {
           "date": {
-            "example": "Personal",
-            "format": "datetime",
+            "format": "date-time",
             "type": "string"
           },
           "labels": {
