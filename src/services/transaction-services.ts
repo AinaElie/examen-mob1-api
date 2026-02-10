@@ -41,7 +41,7 @@ export class TransactionServices {
   }
 
   static async getOneById(accountId: string, walletId: string, transactionId: string) {
-    const getTransactionById = await getPrismaClient().transaction.findFirst({ where: { id: transactionId, walletId, accountId } });
+    const getTransactionById = await getPrismaClient().transaction.findFirst({ where: { id: transactionId, walletId, accountId }, include: { labels: true } });
     if (!getTransactionById) throw new ApiError(`Transaction with id=${transactionId} not found`, 404);
     return getTransactionById;
   }
@@ -75,6 +75,7 @@ export class TransactionServices {
       orderBy: {
         [sortBy]: sort,
       },
+      include: { labels: true },
     });
   }
 }
