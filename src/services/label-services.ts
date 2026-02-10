@@ -26,6 +26,12 @@ export class LabelServices {
     if (!getLabelById) throw new ApiError(`Label with id=${id} not found`, 404);
     return getLabelById;
   }
+  static async archiveOneById(accountId: string, id: string) {
+    const getLabelById = await getPrismaClient().label.findFirst({ where: { id, accountId } });
+    if (!getLabelById) throw new ApiError(`Label with id=${id} not found`, 404);
+    getLabelById.isArchived = true;
+    return await getPrismaClient().label.update({ data: getLabelById, where: { id, accountId } });
+  }
   static async getAll(accountId: string, query: ListFilters & NameFilter) {
     const { page, pageSize, name = "" } = query;
 
