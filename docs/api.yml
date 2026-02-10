@@ -250,13 +250,21 @@ paths:
                 allOf:
                   - $ref: "#/components/schemas/Wallet"
 
-  /account/{accountId}/wallet/{walletId}/transaction:
+  /account/{accountId}/transaction:
     get:
       tags:
         - transaction
       parameters:
         - $ref: "#/components/parameters/AccountId"
-        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/TransactionWalletId"
+        - $ref: "#/components/parameters/StartingDate"
+        - $ref: "#/components/parameters/EndingDate"
+        - $ref: "#/components/parameters/TransactionType"
+        - $ref: "#/components/parameters/TransactionLabel"
+        - $ref: "#/components/parameters/StartingAmount"
+        - $ref: "#/components/parameters/EndingAmount"
+        - $ref: "#/components/parameters/TransactionSortBy"
+        - $ref: "#/components/parameters/TransactionSort"
       summary: Get all disponibles transaction for the specified account
       operationId: getAllTransactions
       responses:
@@ -268,6 +276,8 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Transaction"
+
+  /account/{accountId}/wallet/{walletId}/transaction:
     post:
       tags:
         - transaction
@@ -510,6 +520,64 @@ components:
       schema:
         type: string
         format: date-time
+    TransactionType:
+      name: type
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+          - IN
+          - OUT
+    TransactionLabel:
+      name: label
+      required: false
+      in: query
+      schema:
+        type: array
+        items:
+          description: label ids
+          type: string
+          format: uuid
+    TransactionWalletId:
+      name: walletId
+      required: false
+      in: query
+      schema:
+        type: string
+        format: uuid
+    StartingAmount:
+      name: startingAmount
+      required: false
+      in: query
+      schema:
+        type: number
+        format: double
+    EndingAmount:
+      name: endingAmount
+      required: false
+      in: query
+      schema:
+        type: number
+        format: double
+    TransactionSortBy:
+      name: sortBy
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+          - DATE
+          - AMOUNT
+    TransactionSort:
+      name: sort
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
     Month:
       name: month
       required: false
