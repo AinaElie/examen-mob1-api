@@ -1460,6 +1460,14 @@
           "type": {
             "enum": ["CASH", "MOBILE_MONEY", "BANK", "DEBT"],
             "type": "string"
+          },
+          "color": {
+            "default": "#00ff00",
+            "example": "#00ff00",
+            "type": "string"
+          },
+          "iconRef": {
+            "type": "string"
           }
         },
         "type": "object"
@@ -1520,6 +1528,14 @@
         "properties": {
           "name": {
             "example": "FOOD",
+            "type": "string"
+          },
+          "color": {
+            "default": "#00ff00",
+            "example": "#00ff00",
+            "type": "string"
+          },
+          "iconRef": {
             "type": "string"
           }
         },

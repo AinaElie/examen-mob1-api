@@ -683,6 +683,12 @@ components:
             - MOBILE_MONEY
             - BANK
             - DEBT
+        color:
+          type: string
+          example: "#00ff00"
+          default: "#00ff00"
+        iconRef:
+          type: string
 
     UpdateWallet:
       type: object
@@ -714,6 +720,12 @@ components:
         name:
           type: string
           example: FOOD
+        color:
+          type: string
+          example: "#00ff00"
+          default: "#00ff00"
+        iconRef:
+          type: string
     Label:
       type: object
       allOf:
