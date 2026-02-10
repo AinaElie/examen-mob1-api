@@ -16,9 +16,10 @@ export const server = async () => {
 
     app.use("/auth", authRouter);
 
+    app.use("/account/:accountId/wallet/:walletId/transaction", securityHandler, transactionRouter);
+
     app.use("/account/:accountId/label", securityHandler, labelRouter);
     app.use("/account/:accountId/wallet", securityHandler, walletRouter);
-    app.use("/account/:accountId/wallet/:walletId/transaction", securityHandler, transactionRouter);
     app.use("/", swaggerRouter);
 
     app.listen(PORT, () => {

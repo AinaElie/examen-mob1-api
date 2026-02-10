@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 
-import { ApiError, BadRequestError } from "@/errors";
+import { BadRequestError } from "@/errors";
 import { TransactionMapper } from "@/mappers";
 import { TransactionServices } from "@/services";
 import { TransactionValidator } from "@/validator";
@@ -8,16 +8,15 @@ import { TransactionValidator } from "@/validator";
 export class TransactionController {
   static readonly create: RequestHandler = async (req, res, _next) => {
     try {
-      const accountId = (req as any).account.id;
-      const { walletId } = req.params;
+      const { walletId, accountId } = req.params as Record<string, string>;
 
       TransactionValidator.create(req.body);
-      const mappedCreateTransaction = TransactionMapper.create(accountId, walletId as string, req.body);
+      const mappedCreateTransaction = TransactionMapper.create(accountId, walletId, req.body);
       const labels = req.body.labels;
 
       if (!labels || labels.length === 0) throw new BadRequestError("One label is expected at least");
 
-      const data = await TransactionServices.create(accountId, walletId as string, mappedCreateTransaction, req.body.labels);
+      const data = await TransactionServices.create(accountId, walletId, mappedCreateTransaction, req.body.labels);
       res.json(TransactionMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
@@ -50,6 +49,7 @@ export class TransactionController {
     }
   };
   static readonly getAll: RequestHandler = async (req, res, _next) => {
+    console.log(req.params);
     try {
       const { page, pageSize } = req as any;
       const { walletId, accountId } = req.params as Record<string, string>;
