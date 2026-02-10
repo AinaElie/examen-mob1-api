@@ -138,6 +138,7 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Label"
+  /account/{accountId}/label/{labelId}/archive:
     post:
       tags:
         - label

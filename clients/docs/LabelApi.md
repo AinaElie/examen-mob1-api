@@ -2,13 +2,13 @@
 
 All URIs are relative to _http://localhost:8080_
 
-| Method                                             | HTTP request                                  | Description                                          |
-| -------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------- |
-| [**archiveOneLabel**](LabelApi.md#archiveonelabel) | **POST** /account/{accountId}/label/{labelId} | Archive one label by id                              |
-| [**createOneLabel**](LabelApi.md#createonelabel)   | **POST** /account/{accountId}/label           | Create new label for the specified account           |
-| [**getAllLabels**](LabelApi.md#getalllabels)       | **GET** /account/{accountId}/label            | Get all disponibles lables for the specified account |
-| [**getOneLabel**](LabelApi.md#getonelabel)         | **GET** /account/{accountId}/label/{labelId}  | Get get one label by id for the specified account    |
-| [**updateOneLabel**](LabelApi.md#updateonelabel)   | **PUT** /account/{accountId}/label/{labelId}  | Update one label by id for the specified account     |
+| Method                                             | HTTP request                                          | Description                                          |
+| -------------------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------- |
+| [**archiveOneLabel**](LabelApi.md#archiveonelabel) | **POST** /account/{accountId}/label/{labelId}/archive | Archive one label by id                              |
+| [**createOneLabel**](LabelApi.md#createonelabel)   | **POST** /account/{accountId}/label                   | Create new label for the specified account           |
+| [**getAllLabels**](LabelApi.md#getalllabels)       | **GET** /account/{accountId}/label                    | Get all disponibles lables for the specified account |
+| [**getOneLabel**](LabelApi.md#getonelabel)         | **GET** /account/{accountId}/label/{labelId}          | Get get one label by id for the specified account    |
+| [**updateOneLabel**](LabelApi.md#updateonelabel)   | **PUT** /account/{accountId}/label/{labelId}          | Update one label by id for the specified account     |
 
 ## archiveOneLabel
 

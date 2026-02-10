@@ -63,7 +63,7 @@ export class LabelApi extends runtime.BaseAPI {
 
     const headerParameters: runtime.HTTPHeaders = {};
 
-    let urlPath = `/account/{accountId}/label/{labelId}`;
+    let urlPath = `/account/{accountId}/label/{labelId}/archive`;
     urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
     urlPath = urlPath.replace(`{${"labelId"}}`, encodeURIComponent(String(requestParameters["labelId"])));
 
