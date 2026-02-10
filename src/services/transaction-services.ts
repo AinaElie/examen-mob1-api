@@ -45,13 +45,13 @@ export class TransactionServices {
     return getTransactionById;
   }
 
-  static async getAll(accountId: string, walletId: string, query: ListFilters) {
+  static async getAll(accountId: string, query: ListFilters) {
     const { page, pageSize } = query;
 
     return await getPrismaClient().transaction.findMany({
       take: pageSize,
       skip: pageSize * (page - 1),
-      where: { accountId, walletId },
+      where: { accountId },
     });
   }
 }

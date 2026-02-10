@@ -49,12 +49,11 @@ export class TransactionController {
     }
   };
   static readonly getAll: RequestHandler = async (req, res, _next) => {
-    console.log(req.params);
     try {
       const { page, pageSize } = req as any;
-      const { walletId, accountId } = req.params as Record<string, string>;
+      const { accountId } = req.params as Record<string, string>;
 
-      const data = await TransactionServices.getAll(accountId, walletId, { page, pageSize });
+      const data = await TransactionServices.getAll(accountId, { page, pageSize });
       res.json(data.map(TransactionMapper.toRest));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
