@@ -341,6 +341,22 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Transaction"
+    delete:
+      tags:
+        - transaction
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/TransactionId"
+      summary: Delete one transaction and update wallet amount
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Transaction"
 
   /account/{accountId}/goal:
     get:
@@ -567,8 +583,8 @@ components:
       schema:
         type: string
         enum:
-          - DATE
-          - AMOUNT
+          - date
+          - amount
     TransactionSort:
       name: sort
       required: false
@@ -576,8 +592,8 @@ components:
       schema:
         type: string
         enum:
-          - ASC
-          - DESC
+          - asc
+          - desc
     Month:
       name: month
       required: false

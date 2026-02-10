@@ -688,7 +688,7 @@
             "name": "sortBy",
             "required": false,
             "schema": {
-              "enum": ["DATE", "AMOUNT"],
+              "enum": ["date", "amount"],
               "type": "string"
             },
             "style": "form"
@@ -699,7 +699,7 @@
             "name": "sort",
             "required": false,
             "schema": {
-              "enum": ["ASC", "DESC"],
+              "enum": ["asc", "desc"],
               "type": "string"
             },
             "style": "form"
@@ -785,6 +785,61 @@
       }
     },
     "/account/{accountId}/wallet/{walletId}/transaction/{transactionId}": {
+      "delete": {
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "walletId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Transaction"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Delete one transaction and update wallet amount",
+        "tags": ["transaction"]
+      },
       "get": {
         "operationId": "getOneTransaction",
         "parameters": [
@@ -1297,7 +1352,7 @@
         "name": "sortBy",
         "required": false,
         "schema": {
-          "enum": ["DATE", "AMOUNT"],
+          "enum": ["date", "amount"],
           "type": "string"
         },
         "style": "form"
@@ -1308,7 +1363,7 @@
         "name": "sort",
         "required": false,
         "schema": {
-          "enum": ["ASC", "DESC"],
+          "enum": ["asc", "desc"],
           "type": "string"
         },
         "style": "form"
