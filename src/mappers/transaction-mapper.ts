@@ -7,9 +7,10 @@ export class TransactionMapper {
     const result = {
       accountId: transaction.accountId,
       amount: transaction.amount,
-      date: transaction.date.toString(),
+      date: transaction.date.toISOString(),
       description: transaction.description,
       id: transaction.id,
+      walletId: transaction.walletId,
     };
 
     return result;
