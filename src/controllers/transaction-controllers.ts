@@ -48,6 +48,15 @@ export class TransactionController {
       res.json({ code: error.status, message: error.message });
     }
   };
+  static readonly deleteOne: RequestHandler = async (req, res, _next) => {
+    try {
+      const { walletId, accountId, transactionId } = req.params as Record<string, string>;
+      const data = await TransactionServices.deleteOneById(accountId, walletId, transactionId);
+      res.json(TransactionMapper.toRest(data));
+    } catch (error) {
+      res.json({ code: error.status, message: error.message });
+    }
+  };
   static readonly getAll: RequestHandler = async (req, res, _next) => {
     try {
       const { page, pageSize } = req as any;

@@ -46,6 +46,18 @@ export class TransactionServices {
     return getTransactionById;
   }
 
+  static async deleteOneById(accountId: string, walletId: string, transactionId: string) {
+    const getTransactionById = await getPrismaClient().transaction.findFirst({ where: { id: transactionId, walletId, accountId } });
+    if (!getTransactionById) throw new ApiError(`Transaction with id=${transactionId} not found`, 404);
+    // update wallet
+    const wallet = await WalletServices.getOneById(accountId, walletId);
+    wallet.amount = wallet.amount + getTransactionById.amount * (getTransactionById.type === "IN" ? 1 : -1);
+    await getPrismaClient().wallet.update({ data: wallet, where: { id: wallet.id, accountId: wallet.accountId } });
+    // update wallet
+    await getPrismaClient().transaction.delete({ where: { id: transactionId, walletId, accountId } });
+    return getTransactionById;
+  }
+
   static async getAll(accountId: string, query: TransactionFilters) {
     const { page, pageSize, walletId, endingDate, label, maxAmount, minAmount, sort = "desc", sortBy = "date", startingDate, type } = query;
 
