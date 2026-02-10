@@ -3,7 +3,8 @@ import { Transaction as PrismaTransaction } from "@prisma/client";
 
 import { getPrismaClient } from "@/configs";
 import { ApiError } from "@/errors";
-import { ListFilters } from "@/types";
+import { ListFilters, TransactionFilters } from "@/types";
+import { filterIfNotNull, filterIfNotNullDate, filterIfNotNullNumber } from "@/utilities";
 import { LabelValidator } from "@/validator";
 
 import { LabelServices } from "./label-services";
@@ -45,13 +46,23 @@ export class TransactionServices {
     return getTransactionById;
   }
 
-  static async getAll(accountId: string, query: ListFilters) {
-    const { page, pageSize } = query;
+  static async getAll(accountId: string, query: TransactionFilters) {
+    const { page, pageSize, walletId, endingDate, label, maxAmount, minAmount, sort = "desc", sortBy = "date", startingDate, type } = query;
 
     return await getPrismaClient().transaction.findMany({
       take: pageSize,
       skip: pageSize * (page - 1),
-      where: { accountId },
+      where: {
+        accountId,
+        ...filterIfNotNull("walletId", walletId),
+        ...filterIfNotNull("type", type),
+        ...filterIfNotNull("labels", label, () => ({ some: { id: { in: label } } })),
+        amount: { ...filterIfNotNullNumber("gte", minAmount), ...filterIfNotNullNumber("lte", maxAmount) },
+        date: { ...filterIfNotNullDate("gte", startingDate), ...filterIfNotNullDate("lte", endingDate) },
+      },
+      orderBy: {
+        [sortBy]: sort,
+      },
     });
   }
 }
