@@ -15,12 +15,6 @@ import type { CreationTransaction, Transaction } from "../models/index";
 import { CreationTransactionFromJSON, CreationTransactionToJSON, TransactionFromJSON, TransactionToJSON } from "../models/index";
 import * as runtime from "../runtime";
 
-export interface AccountAccountIdWalletWalletIdTransactionTransactionIdDeleteRequest {
-  accountId: string;
-  walletId: string;
-  transactionId: string;
-}
-
 export interface CreateOneTransactionRequest {
   accountId: string;
   walletId: string;
@@ -46,6 +40,12 @@ export interface GetOneTransactionRequest {
   transactionId: string;
 }
 
+export interface RemoveOneTransactionRequest {
+  accountId: string;
+  walletId: string;
+  transactionId: string;
+}
+
 export interface UpdateOneTransactionRequest {
   accountId: string;
   walletId: string;
@@ -57,67 +57,6 @@ export interface UpdateOneTransactionRequest {
  *
  */
 export class TransactionApi extends runtime.BaseAPI {
-  /**
-   * Delete one transaction and update wallet amount
-   */
-  async accountAccountIdWalletWalletIdTransactionTransactionIdDeleteRaw(
-    requestParameters: AccountAccountIdWalletWalletIdTransactionTransactionIdDeleteRequest,
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<runtime.ApiResponse<Transaction>> {
-    if (requestParameters["accountId"] == null) {
-      throw new runtime.RequiredError(
-        "accountId",
-        'Required parameter "accountId" was null or undefined when calling accountAccountIdWalletWalletIdTransactionTransactionIdDelete().',
-      );
-    }
-
-    if (requestParameters["walletId"] == null) {
-      throw new runtime.RequiredError(
-        "walletId",
-        'Required parameter "walletId" was null or undefined when calling accountAccountIdWalletWalletIdTransactionTransactionIdDelete().',
-      );
-    }
-
-    if (requestParameters["transactionId"] == null) {
-      throw new runtime.RequiredError(
-        "transactionId",
-        'Required parameter "transactionId" was null or undefined when calling accountAccountIdWalletWalletIdTransactionTransactionIdDelete().',
-      );
-    }
-
-    const queryParameters: any = {};
-
-    const headerParameters: runtime.HTTPHeaders = {};
-
-    let urlPath = `/account/{accountId}/wallet/{walletId}/transaction/{transactionId}`;
-    urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
-    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
-    urlPath = urlPath.replace(`{${"transactionId"}}`, encodeURIComponent(String(requestParameters["transactionId"])));
-
-    const response = await this.request(
-      {
-        path: urlPath,
-        method: "DELETE",
-        headers: headerParameters,
-        query: queryParameters,
-      },
-      initOverrides,
-    );
-
-    return new runtime.JSONApiResponse(response, (jsonValue) => TransactionFromJSON(jsonValue));
-  }
-
-  /**
-   * Delete one transaction and update wallet amount
-   */
-  async accountAccountIdWalletWalletIdTransactionTransactionIdDelete(
-    requestParameters: AccountAccountIdWalletWalletIdTransactionTransactionIdDeleteRequest,
-    initOverrides?: RequestInit | runtime.InitOverrideFunction,
-  ): Promise<Transaction> {
-    const response = await this.accountAccountIdWalletWalletIdTransactionTransactionIdDeleteRaw(requestParameters, initOverrides);
-    return await response.value();
-  }
-
   /**
    * Create new transaction for the specified account
    */
@@ -283,6 +222,55 @@ export class TransactionApi extends runtime.BaseAPI {
    */
   async getOneTransaction(requestParameters: GetOneTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Transaction> {
     const response = await this.getOneTransactionRaw(requestParameters, initOverrides);
+    return await response.value();
+  }
+
+  /**
+   * Delete one transaction and update wallet amount
+   */
+  async removeOneTransactionRaw(
+    requestParameters: RemoveOneTransactionRequest,
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<Transaction>> {
+    if (requestParameters["accountId"] == null) {
+      throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling removeOneTransaction().');
+    }
+
+    if (requestParameters["walletId"] == null) {
+      throw new runtime.RequiredError("walletId", 'Required parameter "walletId" was null or undefined when calling removeOneTransaction().');
+    }
+
+    if (requestParameters["transactionId"] == null) {
+      throw new runtime.RequiredError("transactionId", 'Required parameter "transactionId" was null or undefined when calling removeOneTransaction().');
+    }
+
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    let urlPath = `/account/{accountId}/wallet/{walletId}/transaction/{transactionId}`;
+    urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
+    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
+    urlPath = urlPath.replace(`{${"transactionId"}}`, encodeURIComponent(String(requestParameters["transactionId"])));
+
+    const response = await this.request(
+      {
+        path: urlPath,
+        method: "DELETE",
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    );
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => TransactionFromJSON(jsonValue));
+  }
+
+  /**
+   * Delete one transaction and update wallet amount
+   */
+  async removeOneTransaction(requestParameters: RemoveOneTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Transaction> {
+    const response = await this.removeOneTransactionRaw(requestParameters, initOverrides);
     return await response.value();
   }
 

@@ -138,6 +138,22 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Label"
+    post:
+      tags:
+        - label
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/LabelId"
+      summary: Archive one label by id
+      operationId: archiveOneLabel
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Label"
   /account/{accountId}/wallet:
     get:
       tags:
@@ -349,6 +365,7 @@ paths:
         - $ref: "#/components/parameters/WalletId"
         - $ref: "#/components/parameters/TransactionId"
       summary: Delete one transaction and update wallet amount
+      operationId: removeOneTransaction
       responses:
         "200":
           description: OK
