@@ -28,8 +28,8 @@ export interface GetAllTransactionsRequest {
   endingDate?: Date;
   type?: GetAllTransactionsTypeEnum;
   label?: Array<string>;
-  startingAmount?: number;
-  endingAmount?: number;
+  minAmount?: number;
+  maxAmount?: number;
   sortBy?: GetAllTransactionsSortByEnum;
   sort?: GetAllTransactionsSortEnum;
 }
@@ -131,12 +131,12 @@ export class TransactionApi extends runtime.BaseAPI {
       queryParameters["label"] = requestParameters["label"];
     }
 
-    if (requestParameters["startingAmount"] != null) {
-      queryParameters["startingAmount"] = requestParameters["startingAmount"];
+    if (requestParameters["minAmount"] != null) {
+      queryParameters["minAmount"] = requestParameters["minAmount"];
     }
 
-    if (requestParameters["endingAmount"] != null) {
-      queryParameters["endingAmount"] = requestParameters["endingAmount"];
+    if (requestParameters["maxAmount"] != null) {
+      queryParameters["maxAmount"] = requestParameters["maxAmount"];
     }
 
     if (requestParameters["sortBy"] != null) {

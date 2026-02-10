@@ -261,8 +261,8 @@ paths:
         - $ref: "#/components/parameters/EndingDate"
         - $ref: "#/components/parameters/TransactionType"
         - $ref: "#/components/parameters/TransactionLabel"
-        - $ref: "#/components/parameters/StartingAmount"
-        - $ref: "#/components/parameters/EndingAmount"
+        - $ref: "#/components/parameters/MinAmount"
+        - $ref: "#/components/parameters/MaxAmount"
         - $ref: "#/components/parameters/TransactionSortBy"
         - $ref: "#/components/parameters/TransactionSort"
       summary: Get all disponibles transaction for the specified account
@@ -546,15 +546,15 @@ components:
       schema:
         type: string
         format: uuid
-    StartingAmount:
-      name: startingAmount
+    MinAmount:
+      name: minAmount
       required: false
       in: query
       schema:
         type: number
         format: double
-    EndingAmount:
-      name: endingAmount
+    MaxAmount:
+      name: maxAmount
       required: false
       in: query
       schema:

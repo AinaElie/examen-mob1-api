@@ -663,7 +663,7 @@
           {
             "explode": true,
             "in": "query",
-            "name": "startingAmount",
+            "name": "minAmount",
             "required": false,
             "schema": {
               "format": "double",
@@ -674,7 +674,7 @@
           {
             "explode": true,
             "in": "query",
-            "name": "endingAmount",
+            "name": "maxAmount",
             "required": false,
             "schema": {
               "format": "double",
@@ -1269,10 +1269,10 @@
         },
         "style": "form"
       },
-      "StartingAmount": {
+      "MinAmount": {
         "explode": true,
         "in": "query",
-        "name": "startingAmount",
+        "name": "minAmount",
         "required": false,
         "schema": {
           "format": "double",
@@ -1280,10 +1280,10 @@
         },
         "style": "form"
       },
-      "EndingAmount": {
+      "MaxAmount": {
         "explode": true,
         "in": "query",
-        "name": "endingAmount",
+        "name": "maxAmount",
         "required": false,
         "schema": {
           "format": "double",

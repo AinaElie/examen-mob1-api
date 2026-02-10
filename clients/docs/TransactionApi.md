@@ -80,7 +80,7 @@ No authorization required
 
 ## getAllTransactions
 
-> Array&lt;Transaction&gt; getAllTransactions(accountId, walletId, startingDate, endingDate, type, label, startingAmount, endingAmount, sortBy, sort)
+> Array&lt;Transaction&gt; getAllTransactions(accountId, walletId, startingDate, endingDate, type, label, minAmount, maxAmount, sortBy, sort)
 
 Get all disponibles transaction for the specified account
 
@@ -111,9 +111,9 @@ async function example() {
     // Array<string> (optional)
     label: ...,
     // number (optional)
-    startingAmount: 1.2,
+    minAmount: 1.2,
     // number (optional)
-    endingAmount: 1.2,
+    maxAmount: 1.2,
     // 'DATE' | 'AMOUNT' (optional)
     sortBy: sortBy_example,
     // 'ASC' | 'DESC' (optional)
@@ -134,18 +134,18 @@ example().catch(console.error);
 
 ### Parameters
 
-| Name               | Type             | Description | Notes                                                     |
-| ------------------ | ---------------- | ----------- | --------------------------------------------------------- |
-| **accountId**      | `string`         |             | [Defaults to `undefined`]                                 |
-| **walletId**       | `string`         |             | [Optional] [Defaults to `undefined`]                      |
-| **startingDate**   | `Date`           |             | [Optional] [Defaults to `undefined`]                      |
-| **endingDate**     | `Date`           |             | [Optional] [Defaults to `undefined`]                      |
-| **type**           | `IN`, `OUT`      |             | [Optional] [Defaults to `undefined`] [Enum: IN, OUT]      |
-| **label**          | `Array<string>`  |             | [Optional]                                                |
-| **startingAmount** | `number`         |             | [Optional] [Defaults to `undefined`]                      |
-| **endingAmount**   | `number`         |             | [Optional] [Defaults to `undefined`]                      |
-| **sortBy**         | `DATE`, `AMOUNT` |             | [Optional] [Defaults to `undefined`] [Enum: DATE, AMOUNT] |
-| **sort**           | `ASC`, `DESC`    |             | [Optional] [Defaults to `undefined`] [Enum: ASC, DESC]    |
+| Name             | Type             | Description | Notes                                                     |
+| ---------------- | ---------------- | ----------- | --------------------------------------------------------- |
+| **accountId**    | `string`         |             | [Defaults to `undefined`]                                 |
+| **walletId**     | `string`         |             | [Optional] [Defaults to `undefined`]                      |
+| **startingDate** | `Date`           |             | [Optional] [Defaults to `undefined`]                      |
+| **endingDate**   | `Date`           |             | [Optional] [Defaults to `undefined`]                      |
+| **type**         | `IN`, `OUT`      |             | [Optional] [Defaults to `undefined`] [Enum: IN, OUT]      |
+| **label**        | `Array<string>`  |             | [Optional]                                                |
+| **minAmount**    | `number`         |             | [Optional] [Defaults to `undefined`]                      |
+| **maxAmount**    | `number`         |             | [Optional] [Defaults to `undefined`]                      |
+| **sortBy**       | `DATE`, `AMOUNT` |             | [Optional] [Defaults to `undefined`] [Enum: DATE, AMOUNT] |
+| **sort**         | `ASC`, `DESC`    |             | [Optional] [Defaults to `undefined`] [Enum: ASC, DESC]    |
 
 ### Return type
 
