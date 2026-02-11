@@ -242,6 +242,22 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/Wallet"
+  /account/{accountId}/wallet/{walletId}/archive:
+    post:
+      tags:
+        - wallet
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Archive one wallet by id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Wallet"
 
   /account/{accountId}/wallet/{walletId}/automaticIncome:
     put:
