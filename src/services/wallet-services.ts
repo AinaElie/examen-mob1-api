@@ -38,6 +38,14 @@ export class WalletServices {
     if (!getWalletById) throw new ApiError(`Wallet with id=${id} not found`, 404);
     return getWalletById;
   }
+
+  static async archiveOneById(accountId: string, id: string) {
+    const getWalletById = await getPrismaClient().wallet.findFirst({ where: { id, accountId } });
+    if (!getWalletById) throw new ApiError(`Wallet with id=${id} not found`, 404);
+    getWalletById.isArchived = true;
+    return await getPrismaClient().wallet.update({ data: getWalletById, where: { accountId, id } });
+  }
+
   static async getAll(accountId: string, query: ListFilters & NameFilter & WalletFilter) {
     const { page, pageSize, name, isActive, walletType } = query;
 
