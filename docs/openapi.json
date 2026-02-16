@@ -1516,6 +1516,12 @@
           "endingDate": {
             "format": "date-time",
             "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "iconRef": {
+            "type": "string"
           }
         },
         "type": "object"

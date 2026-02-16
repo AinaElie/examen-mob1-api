@@ -661,6 +661,10 @@ components:
         endingDate:
           type: string
           format: date-time
+        color:
+          type: string
+        iconRef:
+          type: string
     Goal:
       type: object
       allOf:
