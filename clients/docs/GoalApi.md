@@ -2,16 +2,82 @@
 
 All URIs are relative to _http://localhost:8080_
 
-| Method                                                                        | HTTP request                               | Description                                 |
-| ----------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| [**accountAccountIdGoalGet**](GoalApi.md#accountaccountidgoalget)             | **GET** /account/{accountId}/goal          | Get all disponibles goal of one account     |
-| [**accountAccountIdGoalGoalIdGet**](GoalApi.md#accountaccountidgoalgoalidget) | **GET** /account/{accountId}/goal/{goalId} | Get one goal of one account by it\&#39;s id |
-| [**accountAccountIdGoalGoalIdPut**](GoalApi.md#accountaccountidgoalgoalidput) | **PUT** /account/{accountId}/goal/{goalId} | update one goal of one account              |
-| [**accountAccountIdGoalPost**](GoalApi.md#accountaccountidgoalpost)           | **POST** /account/{accountId}/goal         | create new goal for one account             |
+| Method                                        | HTTP request                               | Description                                 |
+| --------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
+| [**createOneGoal**](GoalApi.md#createonegoal) | **POST** /account/{accountId}/goal         | create new goal for one account             |
+| [**getAllGoals**](GoalApi.md#getallgoals)     | **GET** /account/{accountId}/goal          | Get all disponibles goal of one account     |
+| [**getOneGoal**](GoalApi.md#getonegoal)       | **GET** /account/{accountId}/goal/{goalId} | Get one goal of one account by it\&#39;s id |
+| [**updateOneGoal**](GoalApi.md#updateonegoal) | **PUT** /account/{accountId}/goal/{goalId} | update one goal of one account              |
 
-## accountAccountIdGoalGet
+## createOneGoal
 
-> AccountAccountIdGoalGet200Response accountAccountIdGoalGet(accountId, walletId, name, startingDate, endingDate)
+> GetAllGoals200Response createOneGoal(accountId, creationGoal)
+
+create new goal for one account
+
+### Example
+
+```ts
+import {
+  Configuration,
+  GoalApi,
+} from '';
+import type { CreateOneGoalRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new GoalApi();
+
+  const body = {
+    // string
+    accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // CreationGoal (optional)
+    creationGoal: ...,
+  } satisfies CreateOneGoalRequest;
+
+  try {
+    const data = await api.createOneGoal(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+| Name             | Type                            | Description | Notes                     |
+| ---------------- | ------------------------------- | ----------- | ------------------------- |
+| **accountId**    | `string`                        |             | [Defaults to `undefined`] |
+| **creationGoal** | [CreationGoal](CreationGoal.md) |             | [Optional]                |
+
+### Return type
+
+[**GetAllGoals200Response**](GetAllGoals200Response.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+| ----------- | ----------- | ---------------- |
+| **200**     | OK          | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
+
+## getAllGoals
+
+> GetAllGoals200Response getAllGoals(accountId, walletId, name, startingDate, endingDate)
 
 Get all disponibles goal of one account
 
@@ -22,7 +88,7 @@ import {
   Configuration,
   GoalApi,
 } from '';
-import type { AccountAccountIdGoalGetRequest } from '';
+import type { GetAllGoalsRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -39,10 +105,10 @@ async function example() {
     startingDate: 2013-10-20T19:20:30+01:00,
     // Date (optional)
     endingDate: 2013-10-20T19:20:30+01:00,
-  } satisfies AccountAccountIdGoalGetRequest;
+  } satisfies GetAllGoalsRequest;
 
   try {
-    const data = await api.accountAccountIdGoalGet(body);
+    const data = await api.getAllGoals(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -65,7 +131,7 @@ example().catch(console.error);
 
 ### Return type
 
-[**AccountAccountIdGoalGet200Response**](AccountAccountIdGoalGet200Response.md)
+[**GetAllGoals200Response**](GetAllGoals200Response.md)
 
 ### Authorization
 
@@ -84,9 +150,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-## accountAccountIdGoalGoalIdGet
+## getOneGoal
 
-> Goal accountAccountIdGoalGoalIdGet(accountId)
+> Goal getOneGoal(accountId)
 
 Get one goal of one account by it\&#39;s id
 
@@ -97,7 +163,7 @@ import {
   Configuration,
   GoalApi,
 } from '';
-import type { AccountAccountIdGoalGoalIdGetRequest } from '';
+import type { GetOneGoalRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -106,10 +172,10 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-  } satisfies AccountAccountIdGoalGoalIdGetRequest;
+  } satisfies GetOneGoalRequest;
 
   try {
-    const data = await api.accountAccountIdGoalGoalIdGet(body);
+    const data = await api.getOneGoal(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -147,9 +213,9 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
-## accountAccountIdGoalGoalIdPut
+## updateOneGoal
 
-> Goal accountAccountIdGoalGoalIdPut(accountId, goal)
+> Goal updateOneGoal(accountId, goal)
 
 update one goal of one account
 
@@ -160,7 +226,7 @@ import {
   Configuration,
   GoalApi,
 } from '';
-import type { AccountAccountIdGoalGoalIdPutRequest } from '';
+import type { UpdateOneGoalRequest } from '';
 
 async function example() {
   console.log("🚀 Testing  SDK...");
@@ -171,10 +237,10 @@ async function example() {
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // Goal (optional)
     goal: ...,
-  } satisfies AccountAccountIdGoalGoalIdPutRequest;
+  } satisfies UpdateOneGoalRequest;
 
   try {
-    const data = await api.accountAccountIdGoalGoalIdPut(body);
+    const data = await api.updateOneGoal(body);
     console.log(data);
   } catch (error) {
     console.error(error);
@@ -195,72 +261,6 @@ example().catch(console.error);
 ### Return type
 
 [**Goal**](Goal.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: `application/json`
-- **Accept**: `application/json`
-
-### HTTP response details
-
-| Status code | Description | Response headers |
-| ----------- | ----------- | ---------------- |
-| **200**     | OK          | -                |
-
-[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
-
-## accountAccountIdGoalPost
-
-> AccountAccountIdGoalGet200Response accountAccountIdGoalPost(accountId, creationGoal)
-
-create new goal for one account
-
-### Example
-
-```ts
-import {
-  Configuration,
-  GoalApi,
-} from '';
-import type { AccountAccountIdGoalPostRequest } from '';
-
-async function example() {
-  console.log("🚀 Testing  SDK...");
-  const api = new GoalApi();
-
-  const body = {
-    // string
-    accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
-    // CreationGoal (optional)
-    creationGoal: ...,
-  } satisfies AccountAccountIdGoalPostRequest;
-
-  try {
-    const data = await api.accountAccountIdGoalPost(body);
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Run the test
-example().catch(console.error);
-```
-
-### Parameters
-
-| Name             | Type                            | Description | Notes                     |
-| ---------------- | ------------------------------- | ----------- | ------------------------- |
-| **accountId**    | `string`                        |             | [Defaults to `undefined`] |
-| **creationGoal** | [CreationGoal](CreationGoal.md) |             | [Optional]                |
-
-### Return type
-
-[**AccountAccountIdGoalGet200Response**](AccountAccountIdGoalGet200Response.md)
 
 ### Authorization
 

@@ -397,6 +397,7 @@ paths:
       tags:
         - goal
       summary: Get all disponibles goal of one account
+      operationId: getAllGoals
       parameters:
         - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/QueryWalletId"
@@ -421,6 +422,7 @@ paths:
       tags:
         - goal
       summary: create new goal for one account
+      operationId: createOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
       requestBody:
@@ -449,6 +451,7 @@ paths:
       tags:
         - goal
       summary: Get one goal of one account by it's id
+      operationId: getOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
       responses:
@@ -464,6 +467,7 @@ paths:
       tags:
         - goal
       summary: update one goal of one account
+      operationId: updateOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
       requestBody:

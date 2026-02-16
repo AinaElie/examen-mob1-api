@@ -1062,6 +1062,7 @@
     },
     "/account/{accountId}/goal": {
       "get": {
+        "operationId": "getAllGoals",
         "parameters": [
           {
             "explode": false,
@@ -1123,7 +1124,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/_account__accountId__goal_get_200_response"
+                  "$ref": "#/components/schemas/getAllGoals_200_response"
                 }
               }
             },
@@ -1134,6 +1135,7 @@
         "tags": ["goal"]
       },
       "post": {
+        "operationId": "createOneGoal",
         "parameters": [
           {
             "explode": false,
@@ -1165,7 +1167,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/_account__accountId__goal_get_200_response"
+                  "$ref": "#/components/schemas/getAllGoals_200_response"
                 }
               }
             },
@@ -1178,6 +1180,7 @@
     },
     "/account/{accountId}/goal/{goalId}": {
       "get": {
+        "operationId": "getOneGoal",
         "parameters": [
           {
             "explode": false,
@@ -1212,6 +1215,7 @@
         "tags": ["goal"]
       },
       "put": {
+        "operationId": "updateOneGoal",
         "parameters": [
           {
             "explode": false,
@@ -1819,7 +1823,7 @@
         },
         "type": "object"
       },
-      "_account__accountId__goal_get_200_response": {
+      "getAllGoals_200_response": {
         "properties": {
           "pagination": {
             "allOf": [
