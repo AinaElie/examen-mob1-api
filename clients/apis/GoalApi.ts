@@ -31,6 +31,8 @@ export interface GetAllGoalsRequest {
   accountId: string;
   walletId?: string;
   name?: string;
+  minAmount?: number;
+  maxAmount?: number;
   startingDateBeginning?: Date;
   startingDateEnding?: Date;
   endingDateBeginning?: Date;
@@ -163,6 +165,14 @@ export class GoalApi extends runtime.BaseAPI {
 
     if (requestParameters["name"] != null) {
       queryParameters["name"] = requestParameters["name"];
+    }
+
+    if (requestParameters["minAmount"] != null) {
+      queryParameters["minAmount"] = requestParameters["minAmount"];
+    }
+
+    if (requestParameters["maxAmount"] != null) {
+      queryParameters["maxAmount"] = requestParameters["maxAmount"];
     }
 
     if (requestParameters["startingDateBeginning"] != null) {

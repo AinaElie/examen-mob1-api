@@ -150,7 +150,7 @@ No authorization required
 
 ## getAllGoals
 
-> GetAllGoals200Response getAllGoals(accountId, walletId, name, startingDateBeginning, startingDateEnding, endingDateBeginning, endingDateEnding)
+> GetAllGoals200Response getAllGoals(accountId, walletId, name, minAmount, maxAmount, startingDateBeginning, startingDateEnding, endingDateBeginning, endingDateEnding)
 
 Get all disponibles goal of one account
 
@@ -174,6 +174,10 @@ async function example() {
     walletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // string (optional)
     name: name_example,
+    // number (optional)
+    minAmount: 1.2,
+    // number (optional)
+    maxAmount: 1.2,
     // Date (optional)
     startingDateBeginning: 2013-10-20T19:20:30+01:00,
     // Date (optional)
@@ -203,6 +207,8 @@ example().catch(console.error);
 | **accountId**             | `string` |             | [Defaults to `undefined`]            |
 | **walletId**              | `string` |             | [Optional] [Defaults to `undefined`] |
 | **name**                  | `string` |             | [Optional] [Defaults to `undefined`] |
+| **minAmount**             | `number` |             | [Optional] [Defaults to `undefined`] |
+| **maxAmount**             | `number` |             | [Optional] [Defaults to `undefined`] |
 | **startingDateBeginning** | `Date`   |             | [Optional] [Defaults to `undefined`] |
 | **startingDateEnding**    | `Date`   |             | [Optional] [Defaults to `undefined`] |
 | **endingDateBeginning**   | `Date`   |             | [Optional] [Defaults to `undefined`] |

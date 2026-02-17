@@ -402,6 +402,8 @@ paths:
         - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/QueryWalletId"
         - $ref: "#/components/parameters/Name"
+        - $ref: "#/components/parameters/MinAmount"
+        - $ref: "#/components/parameters/MaxAmount"
         - $ref: "#/components/parameters/StartingDateBeginning"
         - $ref: "#/components/parameters/StartingDateEnding"
         - $ref: "#/components/parameters/EndingDateBeginning"

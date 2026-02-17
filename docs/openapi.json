@@ -1099,6 +1099,28 @@
           {
             "explode": true,
             "in": "query",
+            "name": "minAmount",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "maxAmount",
+            "required": false,
+            "schema": {
+              "format": "double",
+              "type": "number"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
             "name": "startingDateBeginning",
             "required": false,
             "schema": {
