@@ -15,8 +15,15 @@ import type { CreationGoal, GetAllGoals200Response, Goal } from "../models/index
 import { CreationGoalFromJSON, CreationGoalToJSON, GetAllGoals200ResponseFromJSON, GetAllGoals200ResponseToJSON, GoalFromJSON, GoalToJSON } from "../models/index";
 import * as runtime from "../runtime";
 
+export interface ArchiveOneGoalRequest {
+  accountId: string;
+  labelId: string;
+  walletId: string;
+}
+
 export interface CreateOneGoalRequest {
   accountId: string;
+  walletId: string;
   creationGoal?: CreationGoal;
 }
 
@@ -30,10 +37,14 @@ export interface GetAllGoalsRequest {
 
 export interface GetOneGoalRequest {
   accountId: string;
+  walletId: string;
+  goalId: string;
 }
 
 export interface UpdateOneGoalRequest {
   accountId: string;
+  walletId: string;
+  goalId: string;
   goal?: Goal;
 }
 
@@ -41,6 +52,52 @@ export interface UpdateOneGoalRequest {
  *
  */
 export class GoalApi extends runtime.BaseAPI {
+  /**
+   * Archive one label by id
+   */
+  async archiveOneGoalRaw(requestParameters: ArchiveOneGoalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Goal>> {
+    if (requestParameters["accountId"] == null) {
+      throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling archiveOneGoal().');
+    }
+
+    if (requestParameters["labelId"] == null) {
+      throw new runtime.RequiredError("labelId", 'Required parameter "labelId" was null or undefined when calling archiveOneGoal().');
+    }
+
+    if (requestParameters["walletId"] == null) {
+      throw new runtime.RequiredError("walletId", 'Required parameter "walletId" was null or undefined when calling archiveOneGoal().');
+    }
+
+    const queryParameters: any = {};
+
+    const headerParameters: runtime.HTTPHeaders = {};
+
+    let urlPath = `/account/{accountId}/wallet/{walletId}/goal/{goalId}/archive`;
+    urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
+    urlPath = urlPath.replace(`{${"labelId"}}`, encodeURIComponent(String(requestParameters["labelId"])));
+    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
+
+    const response = await this.request(
+      {
+        path: urlPath,
+        method: "POST",
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    );
+
+    return new runtime.JSONApiResponse(response, (jsonValue) => GoalFromJSON(jsonValue));
+  }
+
+  /**
+   * Archive one label by id
+   */
+  async archiveOneGoal(requestParameters: ArchiveOneGoalRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Goal> {
+    const response = await this.archiveOneGoalRaw(requestParameters, initOverrides);
+    return await response.value();
+  }
+
   /**
    * create new goal for one account
    */
@@ -52,14 +109,19 @@ export class GoalApi extends runtime.BaseAPI {
       throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling createOneGoal().');
     }
 
+    if (requestParameters["walletId"] == null) {
+      throw new runtime.RequiredError("walletId", 'Required parameter "walletId" was null or undefined when calling createOneGoal().');
+    }
+
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
 
     headerParameters["Content-Type"] = "application/json";
 
-    let urlPath = `/account/{accountId}/goal`;
+    let urlPath = `/account/{accountId}/wallet/{walletId}/goal`;
     urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
+    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
 
     const response = await this.request(
       {
@@ -143,12 +205,22 @@ export class GoalApi extends runtime.BaseAPI {
       throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling getOneGoal().');
     }
 
+    if (requestParameters["walletId"] == null) {
+      throw new runtime.RequiredError("walletId", 'Required parameter "walletId" was null or undefined when calling getOneGoal().');
+    }
+
+    if (requestParameters["goalId"] == null) {
+      throw new runtime.RequiredError("goalId", 'Required parameter "goalId" was null or undefined when calling getOneGoal().');
+    }
+
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
 
-    let urlPath = `/account/{accountId}/goal/{goalId}`;
+    let urlPath = `/account/{accountId}/wallet/{walletId}/goal/{goalId}`;
     urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
+    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
+    urlPath = urlPath.replace(`{${"goalId"}}`, encodeURIComponent(String(requestParameters["goalId"])));
 
     const response = await this.request(
       {
@@ -179,14 +251,24 @@ export class GoalApi extends runtime.BaseAPI {
       throw new runtime.RequiredError("accountId", 'Required parameter "accountId" was null or undefined when calling updateOneGoal().');
     }
 
+    if (requestParameters["walletId"] == null) {
+      throw new runtime.RequiredError("walletId", 'Required parameter "walletId" was null or undefined when calling updateOneGoal().');
+    }
+
+    if (requestParameters["goalId"] == null) {
+      throw new runtime.RequiredError("goalId", 'Required parameter "goalId" was null or undefined when calling updateOneGoal().');
+    }
+
     const queryParameters: any = {};
 
     const headerParameters: runtime.HTTPHeaders = {};
 
     headerParameters["Content-Type"] = "application/json";
 
-    let urlPath = `/account/{accountId}/goal/{goalId}`;
+    let urlPath = `/account/{accountId}/wallet/{walletId}/goal/{goalId}`;
     urlPath = urlPath.replace(`{${"accountId"}}`, encodeURIComponent(String(requestParameters["accountId"])));
+    urlPath = urlPath.replace(`{${"walletId"}}`, encodeURIComponent(String(requestParameters["walletId"])));
+    urlPath = urlPath.replace(`{${"goalId"}}`, encodeURIComponent(String(requestParameters["goalId"])));
 
     const response = await this.request(
       {

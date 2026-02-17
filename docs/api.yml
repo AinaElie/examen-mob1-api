@@ -418,6 +418,8 @@ paths:
                   values:
                     items:
                       $ref: "#/components/schemas/Goal"
+
+  /account/{accountId}/wallet/{walletId}/goal:
     post:
       tags:
         - goal
@@ -425,6 +427,7 @@ paths:
       operationId: createOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
       requestBody:
         content:
           application/json:
@@ -446,7 +449,7 @@ paths:
                   values:
                     items:
                       $ref: "#/components/schemas/Goal"
-  /account/{accountId}/goal/{goalId}:
+  /account/{accountId}/wallet/{walletId}/goal/{goalId}:
     get:
       tags:
         - goal
@@ -454,6 +457,8 @@ paths:
       operationId: getOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/GoalId"
       responses:
         "200":
           description: OK
@@ -470,6 +475,8 @@ paths:
       operationId: updateOneGoal
       parameters:
         - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/WalletId"
+        - $ref: "#/components/parameters/GoalId"
       requestBody:
         content:
           application/json:
@@ -484,6 +491,24 @@ paths:
             application/json:
               schema:
                 type: object
+                allOf:
+                  - $ref: "#/components/schemas/Goal"
+  /account/{accountId}/wallet/{walletId}/goal/{goalId}/archive:
+    post:
+      tags:
+        - goal
+      parameters:
+        - $ref: "#/components/parameters/AccountId"
+        - $ref: "#/components/parameters/LabelId"
+        - $ref: "#/components/parameters/WalletId"
+      summary: Archive one label by id
+      operationId: archiveOneGoal
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
                 allOf:
                   - $ref: "#/components/schemas/Goal"
 
@@ -519,6 +544,13 @@ components:
         format: uuid
     WalletId:
       name: walletId
+      required: true
+      in: path
+      schema:
+        type: string
+        format: uuid
+    GoalId:
+      name: goalId
       required: true
       in: path
       schema:

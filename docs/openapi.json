@@ -1133,7 +1133,9 @@
         },
         "summary": "Get all disponibles goal of one account",
         "tags": ["goal"]
-      },
+      }
+    },
+    "/account/{accountId}/wallet/{walletId}/goal": {
       "post": {
         "operationId": "createOneGoal",
         "parameters": [
@@ -1141,6 +1143,17 @@
             "explode": false,
             "in": "path",
             "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "walletId",
             "required": true,
             "schema": {
               "format": "uuid",
@@ -1178,7 +1191,7 @@
         "tags": ["goal"]
       }
     },
-    "/account/{accountId}/goal/{goalId}": {
+    "/account/{accountId}/wallet/{walletId}/goal/{goalId}": {
       "get": {
         "operationId": "getOneGoal",
         "parameters": [
@@ -1186,6 +1199,28 @@
             "explode": false,
             "in": "path",
             "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "walletId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "goalId",
             "required": true,
             "schema": {
               "format": "uuid",
@@ -1227,6 +1262,28 @@
               "type": "string"
             },
             "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "walletId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "goalId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
           }
         ],
         "requestBody": {
@@ -1260,6 +1317,64 @@
           }
         },
         "summary": "update one goal of one account",
+        "tags": ["goal"]
+      }
+    },
+    "/account/{accountId}/wallet/{walletId}/goal/{goalId}/archive": {
+      "post": {
+        "operationId": "archiveOneGoal",
+        "parameters": [
+          {
+            "explode": false,
+            "in": "path",
+            "name": "accountId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "labelId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          },
+          {
+            "explode": false,
+            "in": "path",
+            "name": "walletId",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            },
+            "style": "simple"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Goal"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "summary": "Archive one label by id",
         "tags": ["goal"]
       }
     }
@@ -1314,6 +1429,17 @@
         "explode": false,
         "in": "path",
         "name": "walletId",
+        "required": true,
+        "schema": {
+          "format": "uuid",
+          "type": "string"
+        },
+        "style": "simple"
+      },
+      "GoalId": {
+        "explode": false,
+        "in": "path",
+        "name": "goalId",
         "required": true,
         "schema": {
           "format": "uuid",

@@ -2,16 +2,86 @@
 
 All URIs are relative to _http://localhost:8080_
 
-| Method                                        | HTTP request                               | Description                                 |
-| --------------------------------------------- | ------------------------------------------ | ------------------------------------------- |
-| [**createOneGoal**](GoalApi.md#createonegoal) | **POST** /account/{accountId}/goal         | create new goal for one account             |
-| [**getAllGoals**](GoalApi.md#getallgoals)     | **GET** /account/{accountId}/goal          | Get all disponibles goal of one account     |
-| [**getOneGoal**](GoalApi.md#getonegoal)       | **GET** /account/{accountId}/goal/{goalId} | Get one goal of one account by it\&#39;s id |
-| [**updateOneGoal**](GoalApi.md#updateonegoal) | **PUT** /account/{accountId}/goal/{goalId} | update one goal of one account              |
+| Method                                          | HTTP request                                                          | Description                                 |
+| ----------------------------------------------- | --------------------------------------------------------------------- | ------------------------------------------- |
+| [**archiveOneGoal**](GoalApi.md#archiveonegoal) | **POST** /account/{accountId}/wallet/{walletId}/goal/{goalId}/archive | Archive one label by id                     |
+| [**createOneGoal**](GoalApi.md#createonegoal)   | **POST** /account/{accountId}/wallet/{walletId}/goal                  | create new goal for one account             |
+| [**getAllGoals**](GoalApi.md#getallgoals)       | **GET** /account/{accountId}/goal                                     | Get all disponibles goal of one account     |
+| [**getOneGoal**](GoalApi.md#getonegoal)         | **GET** /account/{accountId}/wallet/{walletId}/goal/{goalId}          | Get one goal of one account by it\&#39;s id |
+| [**updateOneGoal**](GoalApi.md#updateonegoal)   | **PUT** /account/{accountId}/wallet/{walletId}/goal/{goalId}          | update one goal of one account              |
+
+## archiveOneGoal
+
+> Goal archiveOneGoal(accountId, labelId, walletId)
+
+Archive one label by id
+
+### Example
+
+```ts
+import {
+  Configuration,
+  GoalApi,
+} from '';
+import type { ArchiveOneGoalRequest } from '';
+
+async function example() {
+  console.log("🚀 Testing  SDK...");
+  const api = new GoalApi();
+
+  const body = {
+    // string
+    accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    labelId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    walletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  } satisfies ArchiveOneGoalRequest;
+
+  try {
+    const data = await api.archiveOneGoal(body);
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Run the test
+example().catch(console.error);
+```
+
+### Parameters
+
+| Name          | Type     | Description | Notes                     |
+| ------------- | -------- | ----------- | ------------------------- |
+| **accountId** | `string` |             | [Defaults to `undefined`] |
+| **labelId**   | `string` |             | [Defaults to `undefined`] |
+| **walletId**  | `string` |             | [Defaults to `undefined`] |
+
+### Return type
+
+[**Goal**](Goal.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+### HTTP response details
+
+| Status code | Description | Response headers |
+| ----------- | ----------- | ---------------- |
+| **200**     | OK          | -                |
+
+[[Back to top]](#) [[Back to API list]](../README.md#api-endpoints) [[Back to Model list]](../README.md#models) [[Back to README]](../README.md)
 
 ## createOneGoal
 
-> GetAllGoals200Response createOneGoal(accountId, creationGoal)
+> GetAllGoals200Response createOneGoal(accountId, walletId, creationGoal)
 
 create new goal for one account
 
@@ -31,6 +101,8 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    walletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // CreationGoal (optional)
     creationGoal: ...,
   } satisfies CreateOneGoalRequest;
@@ -52,6 +124,7 @@ example().catch(console.error);
 | Name             | Type                            | Description | Notes                     |
 | ---------------- | ------------------------------- | ----------- | ------------------------- |
 | **accountId**    | `string`                        |             | [Defaults to `undefined`] |
+| **walletId**     | `string`                        |             | [Defaults to `undefined`] |
 | **creationGoal** | [CreationGoal](CreationGoal.md) |             | [Optional]                |
 
 ### Return type
@@ -152,7 +225,7 @@ No authorization required
 
 ## getOneGoal
 
-> Goal getOneGoal(accountId)
+> Goal getOneGoal(accountId, walletId, goalId)
 
 Get one goal of one account by it\&#39;s id
 
@@ -172,6 +245,10 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    walletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    goalId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   } satisfies GetOneGoalRequest;
 
   try {
@@ -191,6 +268,8 @@ example().catch(console.error);
 | Name          | Type     | Description | Notes                     |
 | ------------- | -------- | ----------- | ------------------------- |
 | **accountId** | `string` |             | [Defaults to `undefined`] |
+| **walletId**  | `string` |             | [Defaults to `undefined`] |
+| **goalId**    | `string` |             | [Defaults to `undefined`] |
 
 ### Return type
 
@@ -215,7 +294,7 @@ No authorization required
 
 ## updateOneGoal
 
-> Goal updateOneGoal(accountId, goal)
+> Goal updateOneGoal(accountId, walletId, goalId, goal)
 
 update one goal of one account
 
@@ -235,6 +314,10 @@ async function example() {
   const body = {
     // string
     accountId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    walletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+    // string
+    goalId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
     // Goal (optional)
     goal: ...,
   } satisfies UpdateOneGoalRequest;
@@ -256,6 +339,8 @@ example().catch(console.error);
 | Name          | Type            | Description | Notes                     |
 | ------------- | --------------- | ----------- | ------------------------- |
 | **accountId** | `string`        |             | [Defaults to `undefined`] |
+| **walletId**  | `string`        |             | [Defaults to `undefined`] |
+| **goalId**    | `string`        |             | [Defaults to `undefined`] |
 | **goal**      | [Goal](Goal.md) |             | [Optional]                |
 
 ### Return type
