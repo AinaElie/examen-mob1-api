@@ -1099,7 +1099,7 @@
           {
             "explode": true,
             "in": "query",
-            "name": "startingDate",
+            "name": "startingDateBeginning",
             "required": false,
             "schema": {
               "format": "date-time",
@@ -1110,7 +1110,29 @@
           {
             "explode": true,
             "in": "query",
-            "name": "endingDate",
+            "name": "startingDateEnding",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "endingDateBeginning",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "endingDateEnding",
             "required": false,
             "schema": {
               "format": "date-time",
@@ -1515,6 +1537,50 @@
         "explode": true,
         "in": "query",
         "name": "endingDate",
+        "required": false,
+        "schema": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "StartingDateBeginning": {
+        "explode": true,
+        "in": "query",
+        "name": "startingDateBeginning",
+        "required": false,
+        "schema": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "StartingDateEnding": {
+        "explode": true,
+        "in": "query",
+        "name": "startingDateEnding",
+        "required": false,
+        "schema": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "EndingDateBeginning": {
+        "explode": true,
+        "in": "query",
+        "name": "endingDateBeginning",
+        "required": false,
+        "schema": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "EndingDateEnding": {
+        "explode": true,
+        "in": "query",
+        "name": "endingDateEnding",
         "required": false,
         "schema": {
           "format": "date-time",

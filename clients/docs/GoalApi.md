@@ -150,7 +150,7 @@ No authorization required
 
 ## getAllGoals
 
-> GetAllGoals200Response getAllGoals(accountId, walletId, name, startingDate, endingDate)
+> GetAllGoals200Response getAllGoals(accountId, walletId, name, startingDateBeginning, startingDateEnding, endingDateBeginning, endingDateEnding)
 
 Get all disponibles goal of one account
 
@@ -175,9 +175,13 @@ async function example() {
     // string (optional)
     name: name_example,
     // Date (optional)
-    startingDate: 2013-10-20T19:20:30+01:00,
+    startingDateBeginning: 2013-10-20T19:20:30+01:00,
     // Date (optional)
-    endingDate: 2013-10-20T19:20:30+01:00,
+    startingDateEnding: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    endingDateBeginning: 2013-10-20T19:20:30+01:00,
+    // Date (optional)
+    endingDateEnding: 2013-10-20T19:20:30+01:00,
   } satisfies GetAllGoalsRequest;
 
   try {
@@ -194,13 +198,15 @@ example().catch(console.error);
 
 ### Parameters
 
-| Name             | Type     | Description | Notes                                |
-| ---------------- | -------- | ----------- | ------------------------------------ |
-| **accountId**    | `string` |             | [Defaults to `undefined`]            |
-| **walletId**     | `string` |             | [Optional] [Defaults to `undefined`] |
-| **name**         | `string` |             | [Optional] [Defaults to `undefined`] |
-| **startingDate** | `Date`   |             | [Optional] [Defaults to `undefined`] |
-| **endingDate**   | `Date`   |             | [Optional] [Defaults to `undefined`] |
+| Name                      | Type     | Description | Notes                                |
+| ------------------------- | -------- | ----------- | ------------------------------------ |
+| **accountId**             | `string` |             | [Defaults to `undefined`]            |
+| **walletId**              | `string` |             | [Optional] [Defaults to `undefined`] |
+| **name**                  | `string` |             | [Optional] [Defaults to `undefined`] |
+| **startingDateBeginning** | `Date`   |             | [Optional] [Defaults to `undefined`] |
+| **startingDateEnding**    | `Date`   |             | [Optional] [Defaults to `undefined`] |
+| **endingDateBeginning**   | `Date`   |             | [Optional] [Defaults to `undefined`] |
+| **endingDateEnding**      | `Date`   |             | [Optional] [Defaults to `undefined`] |
 
 ### Return type
 

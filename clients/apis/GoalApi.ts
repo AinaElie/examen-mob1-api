@@ -31,8 +31,10 @@ export interface GetAllGoalsRequest {
   accountId: string;
   walletId?: string;
   name?: string;
-  startingDate?: Date;
-  endingDate?: Date;
+  startingDateBeginning?: Date;
+  startingDateEnding?: Date;
+  endingDateBeginning?: Date;
+  endingDateEnding?: Date;
 }
 
 export interface GetOneGoalRequest {
@@ -163,12 +165,20 @@ export class GoalApi extends runtime.BaseAPI {
       queryParameters["name"] = requestParameters["name"];
     }
 
-    if (requestParameters["startingDate"] != null) {
-      queryParameters["startingDate"] = (requestParameters["startingDate"] as any).toISOString();
+    if (requestParameters["startingDateBeginning"] != null) {
+      queryParameters["startingDateBeginning"] = (requestParameters["startingDateBeginning"] as any).toISOString();
     }
 
-    if (requestParameters["endingDate"] != null) {
-      queryParameters["endingDate"] = (requestParameters["endingDate"] as any).toISOString();
+    if (requestParameters["startingDateEnding"] != null) {
+      queryParameters["startingDateEnding"] = (requestParameters["startingDateEnding"] as any).toISOString();
+    }
+
+    if (requestParameters["endingDateBeginning"] != null) {
+      queryParameters["endingDateBeginning"] = (requestParameters["endingDateBeginning"] as any).toISOString();
+    }
+
+    if (requestParameters["endingDateEnding"] != null) {
+      queryParameters["endingDateEnding"] = (requestParameters["endingDateEnding"] as any).toISOString();
     }
 
     const headerParameters: runtime.HTTPHeaders = {};

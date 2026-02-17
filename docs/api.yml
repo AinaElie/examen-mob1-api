@@ -402,8 +402,10 @@ paths:
         - $ref: "#/components/parameters/AccountId"
         - $ref: "#/components/parameters/QueryWalletId"
         - $ref: "#/components/parameters/Name"
-        - $ref: "#/components/parameters/StartingDate"
-        - $ref: "#/components/parameters/EndingDate"
+        - $ref: "#/components/parameters/StartingDateBeginning"
+        - $ref: "#/components/parameters/StartingDateEnding"
+        - $ref: "#/components/parameters/EndingDateBeginning"
+        - $ref: "#/components/parameters/EndingDateEnding"
       responses:
         "200":
           description: OK
@@ -602,6 +604,34 @@ components:
         format: date-time
     EndingDate:
       name: endingDate
+      required: false
+      in: query
+      schema:
+        type: string
+        format: date-time
+    StartingDateBeginning:
+      name: startingDateBeginning
+      required: false
+      in: query
+      schema:
+        type: string
+        format: date-time
+    StartingDateEnding:
+      name: startingDateEnding
+      required: false
+      in: query
+      schema:
+        type: string
+        format: date-time
+    EndingDateBeginning:
+      name: endingDateBeginning
+      required: false
+      in: query
+      schema:
+        type: string
+        format: date-time
+    EndingDateEnding:
+      name: endingDateEnding
       required: false
       in: query
       schema:
