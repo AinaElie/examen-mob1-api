@@ -1739,6 +1739,10 @@
     "schemas": {
       "CreationGoal": {
         "properties": {
+          "accountId": {
+            "format": "uuid",
+            "type": "string"
+          },
           "name": {
             "example": "Frebruary resolution",
             "type": "string"

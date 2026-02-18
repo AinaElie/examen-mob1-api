@@ -729,6 +729,9 @@ components:
     CreationGoal:
       type: object
       properties:
+        accountId:
+          type: string
+          format: uuid
         name:
           type: string
           example: Frebruary resolution
