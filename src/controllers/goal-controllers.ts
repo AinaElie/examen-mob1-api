@@ -1,54 +1,54 @@
 import { RequestHandler } from "express";
 import { v4 } from "uuid";
 
-import { LabelMapper } from "@/mappers";
-import { LabelServices } from "@/services";
-import { LabelValidator } from "@/validator";
+import { GoalMapper } from "@/mappers";
+import { GoalServices } from "@/services";
+import { GoalValidator } from "@/validator";
 
-export class LabelController {
+export class GoalController {
   static readonly create: RequestHandler = async (req, res, _next) => {
     try {
-      const label = req.body;
+      const { name } = req.body;
       const accountId = (req as any).account.id;
 
-      LabelValidator.create(label);
+      GoalValidator.create(req.body);
 
-      const data = await LabelServices.create(accountId, { id: v4(), ...label });
-      res.json(LabelMapper.toRest(data));
+      const data = await GoalServices.create(accountId, { id: v4(), name });
+      res.json(GoalMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
   };
   static readonly update: RequestHandler = async (req, res, _next) => {
     try {
-      const label = req.body;
+      const goal = req.body;
       const accountId = (req as any).account.id;
-      const { labelId } = req.params;
+      const { goalId, walletId } = req.params as Record<string, string>;
 
-      LabelValidator.update(accountId, label);
+      GoalValidator.update(accountId, goal);
 
-      const data = await LabelServices.update(accountId, { ...label, id: labelId });
-      res.json(LabelMapper.toRest(data));
+      const data = await GoalServices.update(accountId, walletId, { ...goal, id: goalId });
+      res.json(GoalMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
   };
   static readonly getOne: RequestHandler = async (req, res, _next) => {
     try {
-      const { labelId } = req.params;
+      const { goalId } = req.params;
       const accountId = (req as any).account.id;
-      const data = await LabelServices.getOneById(accountId, labelId as string);
-      res.json(LabelMapper.toRest(data));
+      const data = await GoalServices.getOneById(accountId, goalId as string);
+      res.json(GoalMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
   };
   static readonly archiveOne: RequestHandler = async (req, res, _next) => {
     try {
-      const { labelId } = req.params;
+      const { goalId } = req.params;
       const accountId = (req as any).account.id;
-      const data = await LabelServices.archiveOneById(accountId, labelId as string);
-      res.json(LabelMapper.toRest(data));
+      const data = await GoalServices.archiveOneById(accountId, goalId as string);
+      res.json(GoalMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
@@ -57,9 +57,9 @@ export class LabelController {
     try {
       const { page, pageSize } = req as any;
       const accountId = (req as any).account.id;
-
-      const data = await LabelServices.getAll(accountId, { ...req.query, page, pageSize });
-      res.json(LabelMapper.toListResponse(data.values, { page, pageSize, elementCount: data.count }));
+      GoalValidator.filters(req.query as any);
+      const data = await GoalServices.getAll(accountId, { ...req.query, page, pageSize });
+      res.json(GoalMapper.toListResponse(data.values, { page, pageSize, elementCount: data.count }));
     } catch (error) {
       res.json({ code: error.status, message: error.message });
     }
