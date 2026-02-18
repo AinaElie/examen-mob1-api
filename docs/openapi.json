@@ -1161,6 +1161,17 @@
               "type": "string"
             },
             "style": "form"
+          },
+          {
+            "explode": true,
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "enum": ["asc", "desc"],
+              "type": "string"
+            },
+            "style": "form"
           }
         ],
         "responses": {
@@ -1680,7 +1691,18 @@
         },
         "style": "form"
       },
-      "TransactionSort": {
+      "GoalSortBy": {
+        "explode": true,
+        "in": "query",
+        "name": "sortBy",
+        "required": false,
+        "schema": {
+          "enum": ["startingDate", "endingDate", "name", "createdAt", "amount"],
+          "type": "string"
+        },
+        "style": "form"
+      },
+      "Sort": {
         "explode": true,
         "in": "query",
         "name": "sort",

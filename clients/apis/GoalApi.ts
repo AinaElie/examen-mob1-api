@@ -37,6 +37,7 @@ export interface GetAllGoalsRequest {
   startingDateEnding?: Date;
   endingDateBeginning?: Date;
   endingDateEnding?: Date;
+  sort?: GetAllGoalsSortEnum;
 }
 
 export interface GetOneGoalRequest {
@@ -191,6 +192,10 @@ export class GoalApi extends runtime.BaseAPI {
       queryParameters["endingDateEnding"] = (requestParameters["endingDateEnding"] as any).toISOString();
     }
 
+    if (requestParameters["sort"] != null) {
+      queryParameters["sort"] = requestParameters["sort"];
+    }
+
     const headerParameters: runtime.HTTPHeaders = {};
 
     let urlPath = `/account/{accountId}/goal`;
@@ -312,3 +317,12 @@ export class GoalApi extends runtime.BaseAPI {
     return await response.value();
   }
 }
+
+/**
+ * @export
+ */
+export const GetAllGoalsSortEnum = {
+  Asc: "asc",
+  Desc: "desc",
+} as const;
+export type GetAllGoalsSortEnum = (typeof GetAllGoalsSortEnum)[keyof typeof GetAllGoalsSortEnum];

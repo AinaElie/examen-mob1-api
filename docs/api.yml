@@ -297,7 +297,7 @@ paths:
         - $ref: "#/components/parameters/MinAmount"
         - $ref: "#/components/parameters/MaxAmount"
         - $ref: "#/components/parameters/TransactionSortBy"
-        - $ref: "#/components/parameters/TransactionSort"
+        - $ref: "#/components/parameters/Sort"
       summary: Get all disponibles transaction for the specified account
       operationId: getAllTransactions
       responses:
@@ -408,6 +408,7 @@ paths:
         - $ref: "#/components/parameters/StartingDateEnding"
         - $ref: "#/components/parameters/EndingDateBeginning"
         - $ref: "#/components/parameters/EndingDateEnding"
+        - $ref: "#/components/parameters/Sort"
       responses:
         "200":
           description: OK
@@ -688,7 +689,19 @@ components:
         enum:
           - date
           - amount
-    TransactionSort:
+    GoalSortBy:
+      name: sortBy
+      required: false
+      in: query
+      schema:
+        type: string
+        enum:
+          - startingDate
+          - endingDate
+          - name
+          - createdAt
+          - amount
+    Sort:
       name: sort
       required: false
       in: query

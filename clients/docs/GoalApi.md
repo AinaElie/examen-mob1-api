@@ -150,7 +150,7 @@ No authorization required
 
 ## getAllGoals
 
-> GetAllGoals200Response getAllGoals(accountId, walletId, name, minAmount, maxAmount, startingDateBeginning, startingDateEnding, endingDateBeginning, endingDateEnding)
+> GetAllGoals200Response getAllGoals(accountId, walletId, name, minAmount, maxAmount, startingDateBeginning, startingDateEnding, endingDateBeginning, endingDateEnding, sort)
 
 Get all disponibles goal of one account
 
@@ -186,6 +186,8 @@ async function example() {
     endingDateBeginning: 2013-10-20T19:20:30+01:00,
     // Date (optional)
     endingDateEnding: 2013-10-20T19:20:30+01:00,
+    // 'asc' | 'desc' (optional)
+    sort: sort_example,
   } satisfies GetAllGoalsRequest;
 
   try {
@@ -202,17 +204,18 @@ example().catch(console.error);
 
 ### Parameters
 
-| Name                      | Type     | Description | Notes                                |
-| ------------------------- | -------- | ----------- | ------------------------------------ |
-| **accountId**             | `string` |             | [Defaults to `undefined`]            |
-| **walletId**              | `string` |             | [Optional] [Defaults to `undefined`] |
-| **name**                  | `string` |             | [Optional] [Defaults to `undefined`] |
-| **minAmount**             | `number` |             | [Optional] [Defaults to `undefined`] |
-| **maxAmount**             | `number` |             | [Optional] [Defaults to `undefined`] |
-| **startingDateBeginning** | `Date`   |             | [Optional] [Defaults to `undefined`] |
-| **startingDateEnding**    | `Date`   |             | [Optional] [Defaults to `undefined`] |
-| **endingDateBeginning**   | `Date`   |             | [Optional] [Defaults to `undefined`] |
-| **endingDateEnding**      | `Date`   |             | [Optional] [Defaults to `undefined`] |
+| Name                      | Type          | Description | Notes                                                  |
+| ------------------------- | ------------- | ----------- | ------------------------------------------------------ |
+| **accountId**             | `string`      |             | [Defaults to `undefined`]                              |
+| **walletId**              | `string`      |             | [Optional] [Defaults to `undefined`]                   |
+| **name**                  | `string`      |             | [Optional] [Defaults to `undefined`]                   |
+| **minAmount**             | `number`      |             | [Optional] [Defaults to `undefined`]                   |
+| **maxAmount**             | `number`      |             | [Optional] [Defaults to `undefined`]                   |
+| **startingDateBeginning** | `Date`        |             | [Optional] [Defaults to `undefined`]                   |
+| **startingDateEnding**    | `Date`        |             | [Optional] [Defaults to `undefined`]                   |
+| **endingDateBeginning**   | `Date`        |             | [Optional] [Defaults to `undefined`]                   |
+| **endingDateEnding**      | `Date`        |             | [Optional] [Defaults to `undefined`]                   |
+| **sort**                  | `asc`, `desc` |             | [Optional] [Defaults to `undefined`] [Enum: asc, desc] |
 
 ### Return type
 
