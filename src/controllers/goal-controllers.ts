@@ -8,12 +8,11 @@ import { GoalValidator } from "@/validator";
 export class GoalController {
   static readonly create: RequestHandler = async (req, res, _next) => {
     try {
-      const { name } = req.body;
+      const { walletId } = req.params as Record<string, string>;
       const accountId = (req as any).account.id;
 
-      GoalValidator.create(req.body);
-
-      const data = await GoalServices.create(accountId, { id: v4(), name });
+      await GoalValidator.create(accountId, walletId, req.body);
+      const data = await GoalServices.create(accountId, walletId, GoalMapper.create(accountId, { ...req.body }));
       res.json(GoalMapper.toRest(data));
     } catch (error) {
       res.json({ code: error.status, message: error.message });

@@ -1,16 +1,17 @@
 import { Goal as RestGoal } from "@clients";
+import { Goal as GoalPrisma } from "@prisma/client";
 
 import { getPrismaClient } from "@/configs";
 import { ApiError } from "@/errors";
 import { GoalMapper } from "@/mappers";
-import { GoalFilters, ListFilters, NameFilter } from "@/types";
+import { GoalFilters } from "@/types";
 import { filterIfNotNull, filterIfNotNullDate, filterIfNotNullNumber } from "@/utilities";
 
 export class GoalServices {
-  static async create(accountId: string, goal: RestGoal) {
-    const getGoalByName = await getPrismaClient().goal.findFirst({ where: { name: goal.name, accountId, isArchived: false } });
+  static async create(accountId: string, walletId: string, goal: GoalPrisma) {
+    const getGoalByName = await getPrismaClient().goal.findFirst({ where: { name: goal.name, accountId, isArchived: false, walletId } });
     if (getGoalByName) throw new ApiError(`Goal with name=${goal.name} already exist`, 400);
-    return await getPrismaClient().goal.create({ data: GoalMapper.create(accountId, goal) });
+    return await getPrismaClient().goal.create({ data: goal });
   }
   static async update(accountId: string, walletId: string, goal: RestGoal) {
     const getGoalById = await getPrismaClient().goal.findFirst({ where: { id: goal.id, accountId, walletId, isArchived: false } });

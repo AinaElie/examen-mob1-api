@@ -3,7 +3,7 @@ import { Goal as GoalPrisma } from "@prisma/client";
 import z from "zod";
 
 import { ApiError, BadRequestError } from "@/errors";
-import { GoalServices } from "@/services";
+import { GoalServices, WalletServices } from "@/services";
 
 const createGoalSchema = z
   .object({
@@ -18,18 +18,12 @@ const filterSchema = z
   .object({
     name: z.string().optional(),
     walletId: z.string().optional(),
-    startingDateBeginning: z
-      .custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Starting Date invalid")
-      .transform((v: string) => new Date(v)),
-    startingDateEnding: z
-      .custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Starting Date invalid")
-      .transform((v: string) => new Date(v)),
-    endingDateBeginning: z
-      .custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Ending Date invalid")
-      .transform((v: string) => new Date(v)),
-    endingDateEnding: z.custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Ending Date invalid").transform((v: string) => new Date(v)),
-    minAmount: z.custom((value) => !value || /^-?\d+(\.\d+)?$/.test(String(value)), "Min amount must be a valid number").transform((v) => +v),
-    maxAmount: z.custom((value) => !value || /^-?\d+(\.\d+)?$/.test(String(value)), "Max amount must be a valid number").transform((v) => +v),
+    startingDateBeginning: z.custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Starting Date invalid"),
+    startingDateEnding: z.custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Starting Date invalid"),
+    endingDateBeginning: z.custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Ending Date invalid"),
+    endingDateEnding: z.custom((value: string) => !value || new Date(value as string).toString() !== "Invalid Date", "Ending Date invalid"),
+    minAmount: z.custom((value) => !value || /^-?\d+(\.\d+)?$/.test(String(value)), "Min amount must be a valid number"),
+    maxAmount: z.custom((value) => !value || /^-?\d+(\.\d+)?$/.test(String(value)), "Max amount must be a valid number"),
     sortBy: z.refine(
       (sortBy: string) => !sortBy || ["startingDate", "endingDate", "amount", "createdAt", "name"].includes(sortBy),
       "SortBy should be one of : startingDate, endingDate, amount, createdAt",
@@ -37,17 +31,25 @@ const filterSchema = z
     sort: z.refine((sort: string) => !sort || ["asc", "desc"].includes(sort), "SortBy should be one of : asc, desc"),
   })
   .refine(
-    ({ startingDateBeginning, startingDateEnding }) => !startingDateBeginning || !startingDateEnding || startingDateBeginning.getTime() <= startingDateEnding.getTime(),
+    ({ startingDateBeginning, startingDateEnding }: any) =>
+      !startingDateBeginning || !startingDateEnding || new Date(startingDateBeginning).getTime() <= new Date(startingDateEnding).getTime(),
     "In Starting date, beginning must be before ending",
   )
   .refine(
-    ({ endingDateBeginning, endingDateEnding }) => !endingDateBeginning || !endingDateEnding || endingDateBeginning.getTime() <= endingDateEnding.getTime(),
+    ({ endingDateBeginning, endingDateEnding }: any) =>
+      !endingDateBeginning || !endingDateEnding || new Date(endingDateBeginning).getTime() <= new Date(endingDateEnding).getTime(),
     "In Ending date, beginning must be before ending",
   )
-  .refine(({ minAmount, maxAmount }) => !minAmount || !maxAmount || minAmount <= maxAmount, "Min amount must be lower than max amount");
+  .refine(({ minAmount, maxAmount }) => !minAmount || !maxAmount || +minAmount <= +maxAmount, "Min amount must be lower than max amount");
 
 export class GoalValidator {
-  public static create(createGoal: z.infer<typeof createGoalSchema>) {
+  public static async create(accountId: string, walletId: string, createGoal: GoalRest) {
+    const wallet = await WalletServices.getOneById(accountId, walletId);
+
+    if (!wallet) throw new BadRequestError(`Wallet with id=${walletId} not found`);
+
+    if (walletId !== createGoal.walletId) throw new BadRequestError("Wallet id does not match");
+
     const result = createGoalSchema.safeParse(createGoal);
     if (!result.success) throw new BadRequestError(z.prettifyError(result.error));
   }

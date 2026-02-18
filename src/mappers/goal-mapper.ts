@@ -14,6 +14,9 @@ export class GoalMapper {
       endingDate: goal.endingDate,
       startingDate: goal.startingDate,
       walletId: goal.walletId,
+      accountId: goal.accountId,
+      color: goal.color || DEFAULT_COLOR,
+      iconRef: goal.iconRef,
     };
     return mapped;
   }
@@ -23,10 +26,10 @@ export class GoalMapper {
       accountId,
       amount: goal.amount || 0,
       color: goal.color || DEFAULT_COLOR,
-      endingDate: goal.endingDate,
+      endingDate: new Date(goal.endingDate),
+      startingDate: new Date(goal.startingDate),
       id: goal.id,
       name: goal.name || "",
-      startingDate: goal.startingDate,
       walletId: goal.walletId,
       iconRef: goal.iconRef,
       isArchived: false,
